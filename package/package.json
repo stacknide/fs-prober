@@ -1,6 +1,6 @@
 {
   "name": "@knide/fs-prober",
-  "version": "0.0.2",
+  "version": "0.0.0",
   "description": "fs-prober is a browser-friendly NPM package for extracting file and folder structures from user-selected files or directories.",
   "source": "src/index.ts",
   "main": "dist/index.js",
