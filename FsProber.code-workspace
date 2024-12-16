@@ -1,0 +1,34 @@
+{
+  "folders": [
+    {
+      "name": "Root",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "svg.preview.background": "dark-transparent",
+    "terminal.integrated.cwd": "${workspaceFolder}",
+    "[javascriptreact]": {
+      "editor.defaultFormatter": "biomejs.biome"
+    },
+    "[typescriptreact]": {
+      "editor.defaultFormatter": "biomejs.biome"
+    },
+    "[js]": {
+      "editor.defaultFormatter": "biomejs.biome"
+    },
+    "[javascript]": {
+      "editor.defaultFormatter": "biomejs.biome"
+    },
+    "[typescript]": {
+      "editor.defaultFormatter": "biomejs.biome"
+    },
+    // "[json]": {
+    // 	"editor.defaultFormatter": "biomejs.biome"
+    // },
+    // "[jsonc]": {
+    // 	"editor.defaultFormatter": "biomejs.biome"
+    // },
+    "editor.defaultFormatter": "biomejs.biome"
+  }
+}
