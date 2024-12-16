@@ -18,6 +18,9 @@
     "url": "https://github.com/stacknide/fs-prober/issues"
   },
   "homepage": "https://github.com/stacknide/fs-prober#readme",
-  "workspaces": ["docs", "package"],
+  "workspaces": [
+    "docs",
+    "package"
+  ],
   "packageManager": "yarn@4.2.2"
 }

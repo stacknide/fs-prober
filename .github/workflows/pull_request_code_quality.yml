@@ -2,14 +2,21 @@ name: Code Quality
 
 on:
   push:
+    branches:
+      - main
+      - dev
   pull_request:
 
 jobs:
   quality:
+    name: Code Quality
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Enable Corepack
+        run: corepack enable
 
       - name: Setting up Node LTS
         uses: actions/setup-node@v4
@@ -17,9 +24,6 @@ jobs:
           node-version: "lts/*"
           cache: "yarn"
           registry-url: "https://registry.npmjs.org"
-
-      - name: Enable Corepack
-        run: corepack enable
 
       - name: Installing dependenciesn
         run: yarn install --frozen-lockfile

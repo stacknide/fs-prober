@@ -9,7 +9,12 @@
   "publishConfig": {
     "access": "public"
   },
-  "files": ["LICENSE", "CHANGELOG.md", "src", "dist"],
+  "files": [
+    "LICENSE",
+    "CHANGELOG.md",
+    "src",
+    "dist"
+  ],
   "scripts": {
     "dev": "tsc -w",
     "build": "tsup src/index.ts --format cjs,esm --dts",

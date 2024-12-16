@@ -15,8 +15,11 @@ jobs:
     name: Release
     runs-on: ubuntu-latest
     steps:
-      - name: Action checkout
+      - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Enable Corepack
+        run: corepack enable
 
       - name: Setting up Node LTS
         uses: actions/setup-node@v4
@@ -24,9 +27,6 @@ jobs:
           node-version: "lts/*"
           cache: "yarn"
           registry-url: "https://registry.npmjs.org"
-
-      - name: Enable Corepack
-        run: corepack enable
 
       - name: Installing dependencies
         run: yarn install --frozen-lockfile
