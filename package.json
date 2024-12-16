@@ -3,7 +3,8 @@
   "name": "workspace",
   "version": "1.0.0",
   "scripts": {
-    "publish": "yarn changeset publish"
+    "publish": "yarn changeset publish",
+    "version": "yarn changeset"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
@@ -14,10 +15,6 @@
   },
   "author": "ashuvssut (Ashutosh Khanduala)",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/stacknide/fs-prober/issues"
-  },
-  "homepage": "https://github.com/stacknide/fs-prober#readme",
   "workspaces": [
     "docs",
     "package"
