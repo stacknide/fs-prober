@@ -3,10 +3,11 @@
   "name": "workspace",
   "version": "1.0.0",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "publish": "yarn changeset publish"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
+    "@changesets/cli": "^2.27.10",
     "lefthook": "^1.9.2",
     "tsup": "^8.3.5",
     "typescript": "^5.7.2"
