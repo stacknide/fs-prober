@@ -3309,17 +3309,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@knide/fs-prober@workspace:package":
-  version: 0.0.0-use.local
-  resolution: "@knide/fs-prober@workspace:package"
-  dependencies:
-    "@biomejs/biome": "npm:1.9.4"
-    lefthook: "npm:^1.9.2"
-    tsup: "npm:^8.3.5"
-    typescript: "npm:^5.7.2"
-  languageName: unknown
-  linkType: soft
-
 "@leichtgewicht/ip-codec@npm:^2.0.1":
   version: 2.0.5
   resolution: "@leichtgewicht/ip-codec@npm:2.0.5"
@@ -7213,6 +7202,17 @@ __metadata:
   checksum: 10c0/6f2508e792a47e37b7eabd5afc79459c1ea72bce2a46007d2b7ed0bfc3a4d64af38975c6eb7e93edb69ac98bbb907c13ff1b1579b2cf52d3d02dbc0303fca79f
   languageName: node
   linkType: hard
+
+"fs-prober@workspace:package":
+  version: 0.0.0-use.local
+  resolution: "fs-prober@workspace:package"
+  dependencies:
+    "@biomejs/biome": "npm:1.9.4"
+    lefthook: "npm:^1.9.2"
+    tsup: "npm:^8.3.5"
+    typescript: "npm:^5.7.2"
+  languageName: unknown
+  linkType: soft
 
 "fs.realpath@npm:^1.0.0":
   version: 1.0.0
