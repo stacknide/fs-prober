@@ -3,6 +3,14 @@
     {
       "name": "Root",
       "path": "."
+    },
+    {
+      "name": "Docs",
+      "path": "./docs/"
+    },
+    {
+      "name": "Package",
+      "path": "./package/"
     }
   ],
   "settings": {

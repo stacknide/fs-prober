@@ -1,0 +1,45 @@
+{
+  "name": "fs-prober",
+  "version": "1.0.0",
+  "description": "fs-prober is a browser-friendly NPM package for extracting file and folder structures from user-selected files or directories.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "dev": "tsc -w",
+    "build:tsc": "tsc",
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "tsc --noEmit && biome lint ./src",
+    "format": "biome check --write ./src",
+    "publish": "yarn changeset publish",
+    "buildpub": "yarn build && yarn publish",
+    "version": "yarn changeset"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "lefthook": "^1.9.2",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stacknide/fs-prober.git"
+  },
+  "keywords": [
+    "fs-prober",
+    "file",
+    "system",
+    "probe",
+    "folder",
+    "structure",
+    "browser",
+    "FileSystem"
+  ],
+  "author": "ashuvssut (Ashutosh Khanduala)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stacknide/fs-prober/issues"
+  },
+  "homepage": "https://github.com/stacknide/fs-prober#readme"
+}
