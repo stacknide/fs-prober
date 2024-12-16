@@ -1,16 +1,21 @@
 {
   "name": "fs-prober",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "fs-prober is a browser-friendly NPM package for extracting file and folder structures from user-selected files or directories.",
+  "source": "src/index.ts",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": ["LICENSE", "CHANGELOG.md", "src", "dist"],
   "scripts": {
     "dev": "tsc -w",
-    "build:tsc": "tsc",
     "build": "tsup src/index.ts --format cjs,esm --dts",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "tsc --noEmit && biome lint ./src",
+    "lint:tsc": "tsc --noEmit",
+    "lint:biome": "biome check ./src",
+    "lint": "yarn lint:tsc && yarn lint:biome",
     "format": "biome check --write ./src",
     "publish": "yarn changeset publish",
     "buildpub": "yarn build && yarn publish",
@@ -22,20 +27,6 @@
     "tsup": "^8.3.5",
     "typescript": "^5.7.2"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/stacknide/fs-prober.git"
-  },
-  "keywords": [
-    "fs-prober",
-    "file",
-    "system",
-    "probe",
-    "folder",
-    "structure",
-    "browser",
-    "FileSystem"
-  ],
   "author": "ashuvssut (Ashutosh Khanduala)",
   "license": "MIT",
   "bugs": {
