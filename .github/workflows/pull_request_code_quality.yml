@@ -17,10 +17,11 @@ jobs:
           node-version: 20.x
           registry-url: "https://registry.npmjs.org"
 
+      - name: Enable Corepack
+        run: corepack enable
+
       - name: Install yarn
-        run: |
-          npm i yarn -g
-          yarn install
+        run: yarn install
 
       - name: Setup Biome
         uses: biomejs/setup-biome@v2
