@@ -1,5 +1,11 @@
 # @knide/fs-prober
 
+## 0.0.3
+
+### Patch Changes
+
+- f371ad5: v0.0.3
+
 ## 0.0.2
 
 ### Patch Changes
