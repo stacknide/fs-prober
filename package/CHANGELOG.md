@@ -1,5 +1,11 @@
 # @knide/fs-prober
 
+## 0.0.4
+
+### Patch Changes
+
+- 24e5364: Remove .npmrc
+
 ## 0.0.3
 
 ### Patch Changes
