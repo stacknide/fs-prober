@@ -80,6 +80,9 @@
     "useIgnoreFile": true
   },
   "json": {
+    "formatter": {
+      "enabled": false
+    },
     "parser": {
       "allowComments": true
     }
