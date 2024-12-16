@@ -13,7 +13,8 @@
     "LICENSE",
     "CHANGELOG.md",
     "src",
-    "dist"
+    "dist",
+    "README.md"
   ],
   "scripts": {
     "dev": "tsc -w",
@@ -21,10 +22,7 @@
     "lint:tsc": "tsc --noEmit",
     "lint:biome": "biome check ./src",
     "lint": "yarn lint:tsc && yarn lint:biome",
-    "format": "biome check --write ./src",
-    "publish": "yarn changeset publish",
-    "buildpub": "yarn build && yarn publish",
-    "version": "yarn changeset"
+    "format": "biome check --write ./src"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
@@ -37,5 +35,14 @@
   "bugs": {
     "url": "https://github.com/stacknide/fs-prober/issues"
   },
-  "homepage": "https://github.com/stacknide/fs-prober#readme"
+  "homepage": "https://github.com/stacknide/fs-prober#readme",
+  "keywords": [
+    "fs-prober",
+    "file",
+    "system",
+    "probe",
+    "folder",
+    "structure",
+    "browser"
+  ]
 }
