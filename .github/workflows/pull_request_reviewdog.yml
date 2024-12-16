@@ -1,4 +1,4 @@
-name: reviewdog
+name: Reviewdog | Biome
 on: [pull_request]
 jobs:
   biome:
