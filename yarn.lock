@@ -3309,7 +3309,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@knide/fs-prober@workspace:package":
+"@knide/fs-prober@npm:*, @knide/fs-prober@workspace:package":
   version: 0.0.0-use.local
   resolution: "@knide/fs-prober@workspace:package"
   dependencies:
@@ -6174,6 +6174,7 @@ __metadata:
     "@docusaurus/preset-classic": "npm:3.6.3"
     "@docusaurus/tsconfig": "npm:3.6.3"
     "@docusaurus/types": "npm:3.6.3"
+    "@knide/fs-prober": "npm:*"
     "@mdx-js/react": "npm:^3.0.0"
     clsx: "npm:^2.0.0"
     prism-react-renderer: "npm:^2.3.0"
