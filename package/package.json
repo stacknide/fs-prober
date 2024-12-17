@@ -33,8 +33,8 @@
   "author": "Author of your-package-name",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/account-name/your-package-name/issues"
+    "url": "https://github.com/your-org/your-package-name/issues"
   },
-  "homepage": "https://github.com/account-name/your-package-name#readme",
+  "homepage": "https://github.com/your-org/your-package-name#readme",
   "keywords": []
 }

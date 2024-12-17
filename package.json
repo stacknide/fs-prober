@@ -13,7 +13,7 @@
     "tsup": "^8.3.5",
     "typescript": "^5.7.2"
   },
-  "author": "ashuvssut (Ashutosh Khanduala)",
+  "author": "Author of your-package-name",
   "license": "MIT",
   "workspaces": [
     "docs",
