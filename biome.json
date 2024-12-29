@@ -1,64 +1,7 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.8.3/schema.json",
-  "organizeImports": {
-    "enabled": true
-  },
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "correctness": {
-        "useExhaustiveDependencies": "off",
-        "noInnerDeclarations": "off",
-        "noUnnecessaryContinue": "off",
-        "noConstructorReturn": "off"
-      },
-      "suspicious": {
-        "noImplicitAnyLet": "off",
-        "noConfusingVoidType": "off",
-        "noEmptyInterface": "off",
-        "noExplicitAny": "off",
-        "noArrayIndexKey": "off",
-        "noDoubleEquals": "off",
-        "noConsoleLog": "error",
-        "noAssignInExpressions": "off",
-        "noRedeclare": "off"
-      },
-      "style": {
-        "noParameterAssign": "off",
-        "noNonNullAssertion": "off",
-        "noArguments": "off",
-        "noUnusedTemplateLiteral": "off",
-        "useDefaultParameterLast": "off",
-        "useConst": "off",
-        "useEnumInitializers": "off",
-        "useTemplate": "off",
-        "useSelfClosingElements": "off"
-      },
-      "security": {
-        "noDangerouslySetInnerHtml": "off",
-        "noDangerouslySetInnerHtmlWithChildren": "off"
-      },
-      "performance": {
-        "noDelete": "off",
-        "noAccumulatingSpread": "off"
-      },
-      "complexity": {
-        "noForEach": "off",
-        "noBannedTypes": "off",
-        "useLiteralKeys": "off",
-        "useSimplifiedLogicExpression": "off",
-        "useOptionalChain": "off",
-        "useArrowFunction": "off"
-      },
-      "a11y": {
-        "noSvgWithoutTitle": "off",
-        "useMediaCaption": "off",
-        "noHeaderScope": "off",
-        "useAltText": "off",
-        "useButtonType": "off"
-      }
-    }
-  },
+  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "vcs": { "clientKind": "git", "enabled": true, "useIgnoreFile": true },
+  "files": { "ignore": [] },
   "formatter": {
     "enabled": true,
     "formatWithErrors": false,
@@ -67,27 +10,87 @@
     "lineWidth": 100,
     "ignore": ["**/*/generated-new.ts", "**/*/generated-v2.ts"]
   },
+  "organizeImports": { "enabled": true },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "a11y": {
+        "noHeaderScope": "warn",
+        "useAltText": "off",
+        "useButtonType": "off",
+        "useMediaCaption": "off",
+        "useKeyWithClickEvents": "off"
+      },
+      "complexity": {
+        "noBannedTypes": "error",
+        "noForEach": "off",
+        "useArrowFunction": "off",
+        "useLiteralKeys": "warn",
+        "useOptionalChain": "warn",
+        "useSimplifiedLogicExpression": "warn"
+      },
+      "correctness": {
+        "noChildrenProp": "error",
+        "noConstructorReturn": "warn",
+        "noInnerDeclarations": "warn",
+        "noUnnecessaryContinue": "warn",
+        "useExhaustiveDependencies": "warn",
+        "noUnusedImports": {
+          "level": "error",
+          "fix": "safe"
+        }
+      },
+      "performance": { "noAccumulatingSpread": "warn", "noDelete": "warn" },
+      "security": {
+        "noDangerouslySetInnerHtml": "off",
+        "noDangerouslySetInnerHtmlWithChildren": "off"
+      },
+      "style": {
+        "noNonNullAssertion": "warn",
+        "noParameterAssign": "error",
+        "noUnusedTemplateLiteral": "off",
+        "useConst": "error",
+        "useDefaultParameterLast": "off",
+        "useSelfClosingElements": "error",
+        "useImportType": {
+          "level": "error",
+          "fix": "safe"
+        },
+        "noUselessElse": "warn"
+      },
+      "suspicious": {
+        "noArrayIndexKey": "error",
+        "noAssignInExpressions": "warn",
+        "noConfusingVoidType": "warn",
+        "noConsole": {
+          "level": "error",
+          "options": {
+            "allow": ["assert", "error", "info", "warn"]
+          }
+        },
+        "noDoubleEquals": "error",
+        "noEmptyInterface": "warn",
+        "noExplicitAny": "warn",
+        "noImplicitAnyLet": "error",
+        "noRedeclare": "error"
+      }
+    },
+    "ignore": ["**/*.d.ts"]
+  },
   "javascript": {
     "formatter": {
       "jsxQuoteStyle": "double",
       "semicolons": "asNeeded",
-      "quoteStyle": "single"
-    }
-  },
-  "vcs": {
-    "enabled": true,
-    "clientKind": "git",
-    "useIgnoreFile": true
+      "quoteStyle": "double"
+    },
+    "linter": {
+      "enabled": true
+    },
+    "globals": ["global", "process"]
   },
   "json": {
-    "formatter": {
-      "enabled": false
-    },
-    "parser": {
-      "allowComments": true
-    }
-  },
-  "files": {
-    "ignore": []
+    "parser": { "allowComments": true },
+    "formatter": { "enabled": false }
   }
 }
