@@ -57,7 +57,7 @@
           "level": "error",
           "fix": "safe"
         },
-        "noUselessElse": "warn"
+        "noUselessElse": "off"
       },
       "suspicious": {
         "noArrayIndexKey": "error",
