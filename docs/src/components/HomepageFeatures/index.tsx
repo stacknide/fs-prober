@@ -1,8 +1,11 @@
 import Heading from '@theme/Heading'
 import clsx from 'clsx'
-import styles from './styles.module.css'
+import type { JSX } from 'react'
+
+import styles from './styles.module.scss'
 
 type FeatureItem = {
+  id: string
   title: string
   Svg: React.ComponentType<React.ComponentProps<'svg'>>
   description: JSX.Element
@@ -10,6 +13,7 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
+    id: 'easy-to-use',
     title: 'Easy to Use',
     Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
     description: (
@@ -20,6 +24,7 @@ const FeatureList: FeatureItem[] = [
     ),
   },
   {
+    id: 'focus-on-what-matters',
     title: 'Focus on What Matters',
     Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
     description: (
@@ -30,6 +35,7 @@ const FeatureList: FeatureItem[] = [
     ),
   },
   {
+    id: 'powered-by-react',
     title: 'Powered by React',
     Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
     description: (
@@ -60,8 +66,8 @@ export default function HomepageFeatures(): JSX.Element {
     <section className={styles.features}>
       <div className="container">
         <div className="row">
-          {FeatureList.map((props, idx) => (
-            <Feature key={idx} {...props} />
+          {FeatureList.map((props) => (
+            <Feature key={props.id} {...props} />
           ))}
         </div>
       </div>

@@ -5,7 +5,7 @@ import Heading from '@theme/Heading'
 import Layout from '@theme/Layout'
 import clsx from 'clsx'
 
-import styles from './index.module.css'
+import styles from './index.module.scss'
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext()
@@ -17,7 +17,7 @@ function HomepageHeader() {
         </Heading>
         <p className="hero__subtitle">{siteConfig.tagline}</p>
         <div className={styles.buttons}>
-          <Link className="button button--secondary button--lg" to="/docs/intro">
+          <Link className="button button--secondary button--lg" to="/docs/getting-started">
             Docusaurus Tutorial - 5min ⏱️
           </Link>
         </div>
