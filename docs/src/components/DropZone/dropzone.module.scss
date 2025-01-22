@@ -1,0 +1,24 @@
+.dropZoneRoot {
+  $mx: 4px;
+  $my: 4px;
+  height: 100%;
+  padding: $my $mx;
+  border: 2px solid var(--stop-color-2);
+  background: rgba(var(--stop-color-1-rgb), 0.02);
+
+  .uploadIcon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(0, 100%) scale(3);
+    z-index: 1;
+    animation: upload 1s ease-in-out 0.5s forwards infinite;
+  }
+
+  .dropZone {
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    position: relative;
+  }
+}

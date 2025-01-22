@@ -1,0 +1,90 @@
+.ide {
+  height: 112px;
+  max-height: 112px;
+  overflow-y: auto;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-family: monospace;
+  font-size: 12px;
+  font-weight: 400;
+  user-select: none;
+  color: #5e647f;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  [data-theme="dark"] & {
+    background-color: #282A36;
+    color: #cfd2e2;
+  }
+
+  .dir-tree-title {
+    display: flex;
+    align-items: center;
+  }
+
+  .tree,
+  .tree-node,
+  .tree-node-group {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .tree-branch-wrapper,
+  .tree-node__leaf {
+    outline: none;
+  }
+
+  .tree-node {
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    .icon {
+      vertical-align: middle;
+      width: 16px;
+      height: 16px;
+      min-width: 16px;
+    }
+
+    .node-name {
+      margin: 0;
+      font-size: 12px;
+      line-height: 15.08px;
+      font-weight: 400;
+      color: rgb(114 114 116);
+      [data-theme="dark"] & {
+        color: rgb(180, 180, 182);
+      }
+    }
+
+    &:hover {
+      background: transparent !important;
+    }
+
+    .ide {
+      .tree {
+        .tree-node--focused {
+          background: transparent !important;
+        }
+      }
+    }
+  }
+
+  .non-branch-leaf {
+    cursor: default;
+  }
+
+  .tree {
+    .tree-node--selected {
+      background: transparent;
+    }
+  }
+  .tree-node__branch {
+    display: flex;
+  }
+}
+
+.clickable-node {
+  cursor: pointer !important;
+}

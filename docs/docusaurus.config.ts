@@ -1,63 +1,64 @@
-import type * as Preset from '@docusaurus/preset-classic'
-import type { Config } from '@docusaurus/types'
-import { themes as prismThemes } from 'prism-react-renderer'
+import type * as Preset from "@docusaurus/preset-classic"
+import type { Config } from "@docusaurus/types"
+import { themes as prismThemes } from "prism-react-renderer"
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
 const config: Config = {
-  title: 'FS Prober',
-  tagline: 'fs-prober helps you extract file and folder structures from user inputs in Browsers.',
-  favicon: 'img/favicon.ico',
+  title: "FS Prober",
+  tagline: "fs-prober helps you extract file and folder structures from user inputs in Browsers.",
+  favicon: "img/favicon.ico",
 
   // Set the production url of your site here
-  url: 'https://stacknide.github.io/',
+  url: "https://stacknide.github.io/",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/fs-prober/',
+  baseUrl: "/fs-prober/",
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'stacknide', // Usually your GitHub org/user name.
-  projectName: 'fs-prober', // Usually your repo name.
+  organizationName: "stacknide", // Usually your GitHub org/user name.
+  projectName: "fs-prober", // Usually your repo name.
   trailingSlash: false,
 
-  onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+  onBrokenLinks: "throw",
+  onBrokenMarkdownLinks: "warn",
 
   // Even if you don't use internationalization, you can use this field to set
   // useful metadata like html lang. For example, if your site is Chinese, you
   // may want to replace "en" with "zh-Hans".
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en'],
+    defaultLocale: "en",
+    locales: ["en"],
   },
 
+  plugins: ["docusaurus-plugin-sass"],
   presets: [
     [
-      'classic',
+      "classic",
       {
         docs: {
-          sidebarPath: './sidebars.ts',
+          sidebarPath: "./sidebars.ts",
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl: 'https://github.com/stacknide/fs-prober/tree/main/docs',
+          editUrl: "https://github.com/stacknide/fs-prober/tree/main/docs",
         },
         blog: {
           showReadingTime: true,
           feedOptions: {
-            type: ['rss', 'atom'],
+            type: ["rss", "atom"],
             xslt: true,
           },
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl: 'https://github.com/stacknide/fs-prober/tree/main/docs',
+          editUrl: "https://github.com/stacknide/fs-prober/tree/main/docs",
           // Useful options to enforce blogging best practices
-          onInlineTags: 'warn',
-          onInlineAuthors: 'warn',
-          onUntruncatedBlogPosts: 'warn',
+          onInlineTags: "warn",
+          onInlineAuthors: "warn",
+          onUntruncatedBlogPosts: "warn",
         },
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: "./src/css/custom.css",
         },
       } satisfies Preset.Options,
     ],
@@ -65,37 +66,37 @@ const config: Config = {
 
   themeConfig: {
     // Replace with your project's social card
-    image: 'img/docusaurus-social-card.jpg',
+    image: "img/docusaurus-social-card.jpg",
     navbar: {
-      title: 'FS Prober',
+      title: "FS Prober",
       logo: {
-        alt: 'FS Prober',
-        src: 'img/logo.svg',
+        alt: "FS Prober",
+        src: "img/logo.svg",
       },
       items: [
         {
-          type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
-          position: 'left',
-          label: 'Tutorial',
+          type: "docSidebar",
+          sidebarId: "tutorialSidebar",
+          position: "left",
+          label: "Tutorial",
         },
-        { to: '/blog', label: 'Blog', position: 'left' },
+        { to: "/blog", label: "Blog", position: "left" },
         {
-          href: 'https://github.com/stacknide/fs-prober',
-          label: 'GitHub',
-          position: 'right',
+          href: "https://github.com/stacknide/fs-prober",
+          label: "GitHub",
+          position: "right",
         },
       ],
     },
     footer: {
-      style: 'dark',
+      style: "dark",
       links: [
         {
-          title: 'Docs',
+          title: "Docs",
           items: [
             {
-              label: 'Tutorial',
-              to: '/docs/getting-started',
+              label: "Tutorial",
+              to: "/docs/getting-started",
             },
           ],
         },
@@ -117,20 +118,20 @@ const config: Config = {
         //   ],
         // },
         {
-          title: 'More',
+          title: "More",
           items: [
             {
-              label: 'Blog',
-              to: '/blog',
+              label: "Blog",
+              to: "/blog",
             },
           ],
         },
         {
-          title: 'Links',
+          title: "Links",
           items: [
             {
-              label: 'GitHub',
-              href: 'https://github.com/stacknide',
+              label: "GitHub",
+              href: "https://github.com/stacknide",
             },
           ],
         },

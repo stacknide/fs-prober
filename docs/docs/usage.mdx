@@ -1,0 +1,34 @@
+---
+sidebar_position: 2
+---
+
+import Playground from './../src/components/Playground/Playground'
+
+# Usage
+
+### `useProbingDropzone`
+
+### Overview
+
+This function extends the capabilities of useDropzone by adding directory probing functionality enabling to detect even nested empty folders
+
+**Example:**
+```jsx
+import { useProbingDropzone } from "@knide/fs-prober/src/useProbingDropzone"
+
+const Playground = () => {
+  const [dropZoneProps, hierarchyDetails] = useProbingDropzone()
+  const { acceptedFiles, getRootProps, getInputProps } = dropZoneProps
+
+  return (
+    <section className={ss.dropzoneRoot}>
+      <div {...getRootProps({ className: ss.dropzone })}>
+        <input {...getInputProps()} />
+        <p>Drag 'n' drop some files here, or click to select files</p>
+      </div>
+    </section>
+  )
+}
+```
+
+<Playground/>
