@@ -1,5 +1,5 @@
 import type { HierarchyDetails } from "@knide/fs-prober/src/types"
-import classNames from "classnames"
+import clsx from "clsx"
 import { useMemo } from "react"
 import { AnimatedContainer } from "./AnimatedContainer"
 import { TreeLayout, type TreeLayoutProps } from "./TreeLayout"
@@ -27,7 +27,7 @@ export const DirectoryTree = ({
   const noTreeData = !treeData?.length
 
   return (
-    <AnimatedContainer id="directory-tree" className={classNames("ide", className)}>
+    <AnimatedContainer id="directory-tree" className={clsx("ide", className)}>
       <Title title={title} key="title" icon={titleIcon} />
       {noTreeData ? (
         <>{children}</>
