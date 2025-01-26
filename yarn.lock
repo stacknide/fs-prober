@@ -14406,6 +14406,14 @@ __metadata:
     lefthook: "npm:^1.9.2"
     tsup: "npm:^8.3.5"
     typescript: "npm:^5.7.2"
+  peerDependencies:
+    "@types/react": ">=17.0.0"
+    react: ">=17.0.0"
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+    react:
+      optional: true
   languageName: unknown
   linkType: soft
 

@@ -31,6 +31,18 @@
     "tsup": "^8.3.5",
     "typescript": "^5.7.2"
   },
+  "peerDependencies": {
+    "@types/react": ">=17.0.0",
+    "react": ">=17.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@types/react": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    }
+  },
   "author": "Author of your-package-name",
   "license": "MIT",
   "bugs": {
