@@ -41,12 +41,12 @@ export type HierarchyTree = {
 export type HierarchyDetails<TFileNode = FileNode> = {
   emptyFolders: FolderNode<TFileNode>[]
   allFolders: FolderNode<TFileNode>[]
-  allFiles: FileNode[]
-  rootHandles: (FileSystemEntry | FileSystemHandle)[]
   rootFolders: FolderNode<TFileNode>[]
-  rootFiles: FileNode[]
   nameMap: Map<string, string>
   objectMap: Map<string, FolderNode<TFileNode> | FileNode>
+  allFiles: FileNode[]
+  rootFiles: FileNode[]
+  rootHandles: (FileSystemEntry | FileSystemHandle)[]
 }
 
 export type HierarchyDetailsWithoutHandles = {

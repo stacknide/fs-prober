@@ -150,9 +150,9 @@ export const getHierarchyDetailsFromFiles = (filesArr: FileWithPath[]) => {
   return hierarchyDetails
 }
 
-export const filterFiles = (itemsArray: (FileWithPath | DataTransferItem)[]) => {
-  return itemsArray.filter((item) => {
-    // Check if the item is a File object
+export const filterFiles = (itemsArray: (FileWithPath | DataTransferItem)[]): FileWithPath[] => {
+  return itemsArray.filter((item): item is FileWithPath => {
+    // Check if the item is a FileWithPath
     if (item instanceof File) {
       return true
     }
@@ -219,25 +219,102 @@ const getWebkitRelativePath = (str?: string) => {
   return isFile ? "" : path
 }
 
-export const updateWebkitRelativePath = (file: File, path: string) => {
+/** Returns the original file path which is derived from `path` and `file.name` */
+export const getOriginalFilePath = (file: File, path: string) => {
+  const pathParts = path.split("/").filter(Boolean) // /a/b/cd (1).mp4 => ['a', 'b', 'cd (1).mp4']
+  // replace the last pathPart with the original file name
+  pathParts[pathParts.length - 1] = file.name
+  return pathParts.join("/")
+}
+
+export const updateWebkitRelativePath = (file: FileWithPath, path: string) => {
+  const origPath = getOriginalFilePath(file, path)
   try {
     Object.defineProperty(file, "webkitRelativePath", { value: path }) // Now, webkitRelativePath's read-only
+    if (file.path === undefined) Object.defineProperty(file, "path", { value: origPath })
+
     return file
-  } catch (e: unknown) {
-    if (e instanceof TypeError && e.message === "Cannot redefine property: webkitRelativePath") {
-      // If it's not possible to redefine the property, create a new File object
+  } catch (e) {
+    if (e instanceof TypeError && e.message.includes("Cannot redefine property")) {
+      // If it's not possible to redefine the path/webkitRelativePath property, create a new File object
+
+      const newFile = addFileProperties(file, {
+        webkitRelativePath: path,
+        path: origPath,
+      })
+      return newFile
+    } else {
+      console.error("Unexpected error: ", e)
+      throw e
+    }
+  }
+}
+
+export const addFileProperties = (
+  file: FileWithPath,
+  // biome-ignore lint/suspicious/noExplicitAny: Any key value pair is allowed
+  propertiesObject: Record<string, any>,
+) => {
+  try {
+    for (const [property, value] of Object.entries(propertiesObject)) {
+      Object.defineProperty(file, property, { value })
+    }
+
+    return file
+  } catch (e) {
+    if (e instanceof TypeError && e.message.includes("Cannot redefine property")) {
+      // If it's not possible to redefine the `property`, create a new File object
       const newFile = new File([file], file.name, {
         type: file.type,
         lastModified: file.lastModified,
       })
 
-      Object.defineProperty(newFile, "webkitRelativePath", { value: path })
-      Object.defineProperty(newFile, "path", { value: path })
+      const allPrevKeys = [
+        ...Object.getOwnPropertyNames(file),
+        ...Object.getOwnPropertyNames(Object.getPrototypeOf(file)),
+      ]
+      const prevPropertiesObject = {}
+      for (const key of allPrevKeys) {
+        // @ts-ignore
+        const val = file[key]
+        if (typeof val === "function" || val === undefined) continue
+        // @ts-ignore
+        prevPropertiesObject[key] = val
+      }
 
+      const fileProps = {
+        ...prevPropertiesObject,
+        path: file.path,
+        webkitRelativePath: file.webkitRelativePath,
+        ...propertiesObject,
+      }
+
+      for (const [prop, value] of Object.entries(fileProps)) {
+        Object.defineProperty(newFile, prop, { value })
+      }
       return newFile
     } else {
-      console.warn("Unexpected error: ", e)
+      console.error("Unexpected error: ", e)
       throw e
     }
   }
+}
+
+const removeLeadingSlash = (path: string | undefined) => {
+  if (!path) return ""
+  let newPath = path
+  if (path.startsWith("./")) newPath = path.substring(2) // Remove leading ./
+  if (path.startsWith("/")) newPath = path.substring(1) // Remove leading slash
+  return newPath
+}
+
+export const fixFilePathLeadingSlashes = (files: FileWithPath[]) => {
+  return files.map((file) => {
+    const path = removeLeadingSlash(file.path || file.relativePath || file.webkitRelativePath)
+    const newFile = addFileProperties(file, {
+      webkitRelativePath: path,
+      path: getOriginalFilePath(file, path),
+    })
+    return newFile
+  })
 }

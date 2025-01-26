@@ -1,9 +1,15 @@
 import { fromEvent } from "file-selector"
 import { useState } from "react"
 import { type DropEvent, type DropzoneOptions, useDropzone } from "react-dropzone"
-import { convertToFileList, filterFiles, getFilesArrFromHierarchyFiles } from "./fileUtils"
+import {
+  convertToFileList,
+  filterFiles,
+  fixFilePathLeadingSlashes,
+  getFilesArrFromHierarchyFiles,
+  getHierarchyDetailsFromFiles,
+} from "./fileUtils"
 import { probeHierarchy } from "./probers"
-import type { HierarchyDetails } from "./types"
+import type { HierarchyDetails, HierarchyDetailsWithoutHandles } from "./types"
 
 const DEFAULT_HIERARCHY_DETAILS: HierarchyDetails = {
   emptyFolders: [],
@@ -21,13 +27,27 @@ const DEFAULT_HIERARCHY_DETAILS: HierarchyDetails = {
  * by adding directory probing functionality enabling to detect even nested empty folders
  */
 export const useProbingDropzone = (options: DropzoneOptions = {}) => {
-  const [hierarchyDetails, setHierarchyDetails] = useState(DEFAULT_HIERARCHY_DETAILS)
+  const [hierarchyDetails, setHierarchyDetails] = //
+    useState<HierarchyDetails | HierarchyDetailsWithoutHandles>(DEFAULT_HIERARCHY_DETAILS)
 
   const dropZoneProps = useDropzone({
     getFilesFromEvent: async (event) => {
-      const { filesData, hierarchyDetails: hDat } = await droppedItemHierarchyProber(event)
-      if (hDat) setHierarchyDetails(hDat)
-      return filesData
+      try {
+        const { filesData, hierarchyDetails: hDat } = await droppedItemHierarchyProber(event)
+        if (hDat) setHierarchyDetails(hDat)
+        return filesData
+      } catch (e) {
+        if (e instanceof Error && e.message === "Unable to generate hierarchyTree for drop event") {
+          // It was not a drop event. It was a click event
+          const filesDraft = await fromEvent(event)
+          const filteredFiles = filterFiles(filesDraft)
+          const files = fixFilePathLeadingSlashes(filteredFiles)
+          const hierarchyDetails = getHierarchyDetailsFromFiles(files)
+          if (hierarchyDetails) setHierarchyDetails(hierarchyDetails)
+          return files
+        }
+        throw e
+      }
     },
     ...options,
   })

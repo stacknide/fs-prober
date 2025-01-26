@@ -1,4 +1,4 @@
-import type { HierarchyDetails } from "@knide/fs-prober/src/types"
+import type { HierarchyDetails, HierarchyDetailsWithoutHandles } from "@knide/fs-prober/src/types"
 import clsx from "clsx"
 import { useMemo } from "react"
 import { AnimatedContainer } from "./AnimatedContainer"
@@ -54,7 +54,7 @@ const Title = ({ title, icon = null }) => {
 }
 
 type HierarchyDetailsTreeViewProps = {
-  hierarchyDetails: HierarchyDetails
+  hierarchyDetails: HierarchyDetails | HierarchyDetailsWithoutHandles
 } & Partial<DirectoryTreeProps>
 export const HierarchyDetailsTreeView = ({
   hierarchyDetails,
@@ -65,7 +65,9 @@ export const HierarchyDetailsTreeView = ({
   return <DirectoryTree treeData={treeData} {...props} />
 }
 
-export const flatten = (hDet: HierarchyDetails): TreeLayoutProps["treeData"] => {
+export const flatten = (
+  hDet: HierarchyDetails | HierarchyDetailsWithoutHandles,
+): TreeLayoutProps["treeData"] => {
   if (!hDet) return []
 
   const rootFiles = Array.isArray(hDet.rootFiles) ? hDet.rootFiles : []

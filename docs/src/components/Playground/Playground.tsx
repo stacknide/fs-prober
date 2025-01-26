@@ -1,4 +1,4 @@
-import { useProbingDropzone } from "@knide/fs-prober/src/useProbingDropzone"
+import { useProbingDropzone } from "@knide/fs-prober"
 import { HierarchyDetailsTreeView } from "@site/src/components/DirectoryTree/DirectoryTree"
 import { useEffect } from "react"
 import ss from "./playground.module.scss"
