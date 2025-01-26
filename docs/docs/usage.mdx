@@ -14,19 +14,28 @@ This function extends the capabilities of useDropzone by adding directory probin
 
 **Example:**
 ```jsx
-import { useProbingDropzone } from "@knide/fs-prober/src/useProbingDropzone"
+import { useProbingDropzone } from "@knide/fs-prober"
 
 const Playground = () => {
-  const [dropZoneProps, hierarchyDetails] = useProbingDropzone()
+  // Optional prop to enable folder selection mode
+  const [isFolderSelectionMode, setIsFolderSelectMode] = useState(false)
+
+  const [dropZoneProps, hierarchyDetails] = useProbingDropzone({ isFolderSelectionMode })
   const { acceptedFiles, getRootProps, getInputProps } = dropZoneProps
 
   return (
-    <section className={ss.dropzoneRoot}>
-      <div {...getRootProps({ className: ss.dropzone })}>
-        <input {...getInputProps()} />
-        <p>Drag 'n' drop some files here, or click to select files</p>
-      </div>
-    </section>
+    <>
+      <SelectionModeSwitch {...{isFolderSelectionMode, setIsFolderSelectMode}} /> 
+
+      <section className={ss.dropzoneRoot}>
+        <div {...getRootProps({ className: ss.dropzone })}>
+          <input {...getInputProps()} />
+          <p>
+            Drag 'n' drop some files & folders here, or click to select {isFolderSelectionMode ? "a folder" : "files"}
+          </p>
+        </div>
+      </section>
+    </>
   )
 }
 ```

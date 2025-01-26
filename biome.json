@@ -66,7 +66,15 @@
         "noConsole": {
           "level": "error",
           "options": {
-            "allow": ["assert", "error", "info", "warn"]
+            "allow": [
+              "assert",
+              "error",
+              "info",
+              "warn",
+              "group",
+              "groupCollapsed",
+              "groupEnd"
+            ]
           }
         },
         "noDoubleEquals": "error",

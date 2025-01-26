@@ -1,3 +1,13 @@
+.selectionModes {
+  margin: 4px 0 !important;
+}
+.modeSelector {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
 .dropzoneRoot {
   width: 100%;
   background-color: var(--code-bg);

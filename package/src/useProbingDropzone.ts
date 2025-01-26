@@ -1,5 +1,5 @@
 import { fromEvent } from "file-selector"
-import { useState } from "react"
+import { useCallback, useMemo, useState } from "react"
 import { type DropEvent, type DropzoneOptions, useDropzone } from "react-dropzone"
 import {
   convertToFileList,
@@ -26,11 +26,13 @@ const DEFAULT_HIERARCHY_DETAILS: HierarchyDetails = {
  * useProbingDropzone - This hook that extends the capabilities of useDropzone
  * by adding directory probing functionality enabling to detect even nested empty folders
  */
-export const useProbingDropzone = (options: DropzoneOptions = {}) => {
+export const useProbingDropzone = (
+  options: DropzoneOptions & { isFolderSelectionMode?: boolean } = {},
+) => {
   const [hierarchyDetails, setHierarchyDetails] = //
     useState<HierarchyDetails | HierarchyDetailsWithoutHandles>(DEFAULT_HIERARCHY_DETAILS)
 
-  const dropZoneProps = useDropzone({
+  const defaultDropzoneProps = useDropzone({
     getFilesFromEvent: async (event) => {
       try {
         const { filesData, hierarchyDetails: hDat } = await droppedItemHierarchyProber(event)
@@ -52,9 +54,31 @@ export const useProbingDropzone = (options: DropzoneOptions = {}) => {
     ...options,
   })
 
-  const getFileList = (filesArray = dropZoneProps.acceptedFiles) => convertToFileList(filesArray)
+  const getFileList = (filesArray = defaultDropzoneProps.acceptedFiles) =>
+    convertToFileList(filesArray)
 
-  return [dropZoneProps, hierarchyDetails, { getFileList }] as const
+  const customGetInputProps: typeof defaultDropzoneProps.getInputProps = useCallback(
+    (props) => {
+      // Ref: https://stackoverflow.com/a/42633404/12872199
+      const folderSelectionModeProps = options.isFolderSelectionMode
+        ? {
+            webkitdirectory: "",
+            mozdirectory: "",
+            directory: "",
+            allowdirs: "",
+            msdirectory: "",
+            odirectory: "",
+          }
+        : {}
+      return { ...defaultDropzoneProps.getInputProps(props), ...folderSelectionModeProps }
+    },
+    [defaultDropzoneProps.getInputProps, options.isFolderSelectionMode],
+  )
+  const dropzoneProps = useMemo(() => {
+    return { ...defaultDropzoneProps, getInputProps: customGetInputProps }
+  }, [customGetInputProps, defaultDropzoneProps])
+
+  return [dropzoneProps, hierarchyDetails, { getFileList }] as const
 }
 
 export const droppedItemHierarchyProber = async (e: DropEvent) => {
