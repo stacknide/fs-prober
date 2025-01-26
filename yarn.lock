@@ -3192,7 +3192,13 @@ __metadata:
     tsup: "npm:^8.3.5"
     typescript: "npm:^5.7.2"
   peerDependencies:
-    react: ">= 16.8 || 18.0.0"
+    "@types/react": ">=17.0.0"
+    react: ">=17.0.0"
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+    react:
+      optional: true
   languageName: unknown
   linkType: soft
 
