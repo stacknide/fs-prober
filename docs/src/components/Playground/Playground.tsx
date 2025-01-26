@@ -1,5 +1,6 @@
 import { useProbingDropzone } from "@knide/fs-prober"
 import { HierarchyDetailsTreeView } from "@site/src/components/DirectoryTree/DirectoryTree"
+import { IndeterminateProgressbar } from "@site/src/components/IndeterminateProgressbar"
 import Switch from "@site/src/components/Switch"
 import { useEffect, useState } from "react"
 import ss from "./playground.module.scss"
@@ -8,7 +9,7 @@ const Playground = () => {
   const [isFolderSelectionMode, setIsFolderSelectMode] = useState(false)
 
   const [dropZoneProps, hierarchyDetails] = useProbingDropzone({ isFolderSelectionMode })
-  const { acceptedFiles, getRootProps, getInputProps } = dropZoneProps
+  const { acceptedFiles, getRootProps, getInputProps, isLoading } = dropZoneProps
 
   useEffect(() => {
     if (!hierarchyDetails) return
@@ -40,9 +41,12 @@ const Playground = () => {
       </section>
       <aside className={ss.output}>
         <h4>Files</h4>
-        <HierarchyDetailsTreeView hierarchyDetails={hierarchyDetails}>
-          Nothing to display
-        </HierarchyDetailsTreeView>
+        <div className={ss.outputContainer}>
+          <IndeterminateProgressbar style={{ opacity: isLoading ? 1 : 0 }} />
+          <HierarchyDetailsTreeView hierarchyDetails={hierarchyDetails}>
+            {isLoading ? "Loading..." : "Nothing to display"}
+          </HierarchyDetailsTreeView>
+        </div>
       </aside>
     </>
   )

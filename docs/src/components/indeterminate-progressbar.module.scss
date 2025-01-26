@@ -1,0 +1,70 @@
+.base {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  height: 4px;
+  z-index: 0;
+  background-color: var(--ifm-color-primary-lightest);
+
+  .runner1 {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    transition: transform 0.2s linear;
+    transform-origin: left;
+    background-color: var(--ifm-color-primary-darkest);
+    width: auto;
+    animation: runner1-animation 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395)
+      infinite;
+  }
+
+  .runner2 {
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    transition: transform 0.2s linear;
+    transform-origin: left;
+    background-color: var(--ifm-color-primary-darkest);
+    width: auto;
+    animation: runner2-animation 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) 1.15s
+      infinite;
+  }
+}
+
+@keyframes runner1-animation {
+  0% {
+    left: -35%;
+    right: 100%;
+  }
+
+  60% {
+    left: 100%;
+    right: -90%;
+  }
+
+  100% {
+    left: 100%;
+    right: -90%;
+  }
+}
+
+@keyframes runner2-animation {
+  0% {
+    left: -200%;
+    right: 100%;
+  }
+
+  60% {
+    left: 107%;
+    right: -8%;
+  }
+
+  100% {
+    left: 107%;
+    right: -8%;
+  }
+}

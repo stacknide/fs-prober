@@ -32,8 +32,10 @@ export const useProbingDropzone = (
   const [hierarchyDetails, setHierarchyDetails] = //
     useState<HierarchyDetails | HierarchyDetailsWithoutHandles>(DEFAULT_HIERARCHY_DETAILS)
 
+  const [isLoading, setIsLoading] = useState(false)
   const defaultDropzoneProps = useDropzone({
     getFilesFromEvent: async (event) => {
+      setIsLoading(true)
       try {
         const { filesData, hierarchyDetails: hDat } = await droppedItemHierarchyProber(event)
         if (hDat) setHierarchyDetails(hDat)
@@ -49,6 +51,8 @@ export const useProbingDropzone = (
           return files
         }
         throw e
+      } finally {
+        setIsLoading(false)
       }
     },
     ...options,
@@ -75,8 +79,8 @@ export const useProbingDropzone = (
     [defaultDropzoneProps.getInputProps, options.isFolderSelectionMode],
   )
   const dropzoneProps = useMemo(() => {
-    return { ...defaultDropzoneProps, getInputProps: customGetInputProps }
-  }, [customGetInputProps, defaultDropzoneProps])
+    return { ...defaultDropzoneProps, getInputProps: customGetInputProps, isLoading }
+  }, [customGetInputProps, defaultDropzoneProps, isLoading])
 
   return [dropzoneProps, hierarchyDetails, { getFileList }] as const
 }

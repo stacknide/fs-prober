@@ -8,14 +8,11 @@
   font-size: 12px;
   font-weight: 400;
   user-select: none;
-  color: #5e647f;
   width: 100%;
   display: flex;
   flex-direction: column;
-  [data-theme="dark"] & {
-    background-color: #282A36;
-    color: #cfd2e2;
-  }
+  background-color: var(--code-bg);
+  color: var(--code-color);
 
   .dir-tree-title {
     display: flex;

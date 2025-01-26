@@ -45,4 +45,11 @@
 
 .output {
   margin-top: 1rem;
+
+  .outputContainer {
+    background-color: var(--code-bg);
+    color: var(--code-color);
+    overflow: hidden;
+    border-radius: 6px;
+  }
 }
