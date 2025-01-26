@@ -189,10 +189,10 @@ export const convertToFileList = (fileArray: readonly FileWithPath[] | FolderNod
       const newFile = new File([], file.name)
       // Copy additional properties from the original object to the new File instance
       for (const key in file) {
-        // @ts-expect-error
+        // @ts-ignore
         const shouldCopyProperty = file[key] && !newFile[key]
         if (shouldCopyProperty && key !== "name") {
-          // @ts-expect-error
+          // @ts-ignore
           newFile[key] = file[key]
         }
       }
