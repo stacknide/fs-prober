@@ -1,4 +1,5 @@
-import { fromEvent } from "file-selector"
+import type { HierarchyDetails, HierarchyDetailsWithoutHandles, ProbingDropzonState } from "@/types"
+import { type FileWithPath, fromEvent } from "file-selector"
 import { useCallback, useMemo, useState } from "react"
 import { type DropEvent, type DropzoneOptions, useDropzone } from "react-dropzone"
 import {
@@ -9,7 +10,6 @@ import {
   getHierarchyDetailsFromFiles,
 } from "./fileUtils"
 import { probeHierarchy } from "./probers"
-import type { HierarchyDetails, HierarchyDetailsWithoutHandles } from "./types"
 
 const DEFAULT_HIERARCHY_DETAILS: HierarchyDetails = {
   emptyFolders: [],
@@ -28,7 +28,11 @@ const DEFAULT_HIERARCHY_DETAILS: HierarchyDetails = {
  */
 export const useProbingDropzone = (
   options: DropzoneOptions & { isFolderSelectionMode?: boolean } = {},
-) => {
+): readonly [
+  ProbingDropzonState,
+  HierarchyDetails | HierarchyDetailsWithoutHandles,
+  { getFileList: (filesArray?: FileWithPath[]) => FileList },
+] => {
   const [hierarchyDetails, setHierarchyDetails] = //
     useState<HierarchyDetails | HierarchyDetailsWithoutHandles>(DEFAULT_HIERARCHY_DETAILS)
 
@@ -85,7 +89,12 @@ export const useProbingDropzone = (
   return [dropzoneProps, hierarchyDetails, { getFileList }] as const
 }
 
-export const droppedItemHierarchyProber = async (e: DropEvent) => {
+export const droppedItemHierarchyProber = async (
+  e: DropEvent,
+): Promise<{
+  filesData: FileWithPath[]
+  hierarchyDetails: HierarchyDetails | null | undefined
+}> => {
   const fileSelectorFilesDataPromise = fromEvent(e)
 
   const hierarchyDetails = await probeHierarchy(e)

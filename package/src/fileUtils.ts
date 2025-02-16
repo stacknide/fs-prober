@@ -10,7 +10,9 @@ import {
 } from "./types"
 import { normalizedPath as nP } from "./utils"
 
-export const getFilesArrFromHierarchyFiles = async (hierarchyFiles: FileNode[] | undefined) => {
+export const getFilesArrFromHierarchyFiles = async (
+  hierarchyFiles: FileNode[] | undefined,
+): Promise<File[] | null> => {
   if (!hierarchyFiles) return null
   const proberFilesData = []
   for (const file of hierarchyFiles) {
@@ -108,7 +110,9 @@ const generateFolders = (
   return [allFolders, rootFolders] as const
 }
 
-export const getHierarchyDetailsFromFiles = (filesArr: FileWithPath[]) => {
+export const getHierarchyDetailsFromFiles = (
+  filesArr: FileWithPath[],
+): HierarchyDetailsWithoutHandles | null => {
   if (!filesArr) return null
   const nameMap: HierarchyDetailsWithoutHandles["nameMap"] = new Map()
   const objectMap: Map<string, FileNodeWithoutHandle | FolderNode> = new Map()
@@ -179,7 +183,7 @@ const isFile = (file: FileWithPath | FolderNode): file is FileWithPath => {
 }
 
 /** Converts an array of react-dropzone `File` objects and HierarchyDetails objects to a DataTransfer `FileList` */
-export const convertToFileList = (fileArray: readonly FileWithPath[] | FolderNode[]) => {
+export const convertToFileList = (fileArray: readonly FileWithPath[] | FolderNode[]): FileList => {
   const dataTransfer = new DataTransfer()
   fileArray.forEach((file) => {
     let newDtFile: File = new File([], file.name)
@@ -220,14 +224,14 @@ const getWebkitRelativePath = (str?: string) => {
 }
 
 /** Returns the original file path which is derived from `path` and `file.name` */
-export const getOriginalFilePath = (file: File, path: string) => {
+export const getOriginalFilePath = (file: File, path: string): string => {
   const pathParts = path.split("/").filter(Boolean) // /a/b/cd (1).mp4 => ['a', 'b', 'cd (1).mp4']
   // replace the last pathPart with the original file name
   pathParts[pathParts.length - 1] = file.name
   return pathParts.join("/")
 }
 
-export const updateWebkitRelativePath = (file: FileWithPath, path: string) => {
+export const updateWebkitRelativePath = (file: FileWithPath, path: string): File => {
   const origPath = getOriginalFilePath(file, path)
   try {
     Object.defineProperty(file, "webkitRelativePath", { value: path }) // Now, webkitRelativePath's read-only
@@ -254,7 +258,7 @@ export const addFileProperties = (
   file: FileWithPath,
   // biome-ignore lint/suspicious/noExplicitAny: Any key value pair is allowed
   propertiesObject: Record<string, any>,
-) => {
+): File => {
   try {
     for (const [property, value] of Object.entries(propertiesObject)) {
       Object.defineProperty(file, property, { value })
@@ -308,7 +312,7 @@ const removeLeadingSlash = (path: string | undefined) => {
   return newPath
 }
 
-export const fixFilePathLeadingSlashes = (files: FileWithPath[]) => {
+export const fixFilePathLeadingSlashes = (files: FileWithPath[]): File[] => {
   return files.map((file) => {
     const path = removeLeadingSlash(file.path || file.relativePath || file.webkitRelativePath)
     const newFile = addFileProperties(file, {

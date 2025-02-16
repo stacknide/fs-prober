@@ -1,4 +1,4 @@
-import { useProbingDropzone } from "@knide/fs-prober"
+import { useProbingDropzone } from "@knide/fs-prober/react"
 import { HierarchyDetailsTreeView } from "@site/src/components/DirectoryTree/DirectoryTree"
 import { IndeterminateProgressbar } from "@site/src/components/IndeterminateProgressbar"
 import Switch from "@site/src/components/Switch"
@@ -21,7 +21,7 @@ const Playground = () => {
 
   return (
     <>
-      <h5 className={ss.selectionModes}>Selection Modes for File Selection Dialog:</h5>
+      <h4 className={ss.selectionModes}>Selection Modes for File Selection Window:</h4>
       <div className={ss.modeSelector}>
         <Switch
           isChecked={isFolderSelectionMode}

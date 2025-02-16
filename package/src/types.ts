@@ -1,4 +1,4 @@
-import type { DropEvent } from "react-dropzone"
+import type { DropEvent, DropzoneInputProps, DropzoneState } from "react-dropzone"
 
 export type DataTransferDropEvent = DropEvent & { dataTransfer?: DataTransfer | null }
 
@@ -57,4 +57,9 @@ export type HierarchyDetailsWithoutHandles = {
   objectMap: Map<string, FolderNode<FileNodeWithoutHandle> | FileNodeWithoutHandle>
   allFiles: FileNodeWithoutHandle[]
   rootFiles: FileNodeWithoutHandle[]
+}
+
+export type ProbingDropzonState = DropzoneState & {
+  isLoading: boolean
+  getInputProps: <T extends DropzoneInputProps>(props?: T) => T
 }

@@ -16,14 +16,16 @@ import type {
   HierarchyTree,
 } from "./types"
 
-export const probeHierarchy = async (event: DataTransferDropEvent) => {
+export const probeHierarchy = async (
+  event: DataTransferDropEvent,
+): Promise<HierarchyDetails | null> => {
   if (!event.dataTransfer) throw new Error("Unable to generate hierarchyTree for drop event")
   type RootHandle = NonNullable<ReturnType<typeof getRootHandle>>
   const rootHandleDrafts: Array<RootHandle> = []
   for (let i = 0; i < event.dataTransfer.items.length; i++) {
     try {
       const draftRootHandle = getRootHandle(event, i)
-      if (draftRootHandle === null || draftRootHandle === undefined) return // Return because nothing is dropped yet
+      if (draftRootHandle === null || draftRootHandle === undefined) return null // Return because nothing is dropped yet
       rootHandleDrafts.push(draftRootHandle)
     } catch (error) {
       console.error(`Error probing item ${i}:`, error)
@@ -41,7 +43,7 @@ export const probeHierarchy = async (event: DataTransferDropEvent) => {
   return mergeProbeResults(probeResults)
 }
 
-export const getPathByPathIds = (pathIds: string[], nameMap: Map<string, string>) => {
+export const getPathByPathIds = (pathIds: string[], nameMap: Map<string, string>): string => {
   let path = ""
   for (const pathId of pathIds) {
     const name = nameMap.get(pathId)
@@ -51,7 +53,7 @@ export const getPathByPathIds = (pathIds: string[], nameMap: Map<string, string>
   return path
 }
 
-export const getNameId = (name: string, nameMap: Map<string, string>) => {
+export const getNameId = (name: string, nameMap: Map<string, string>): string => {
   const nameId = nanoid()
   nameMap.set(nameId, name)
   return nameId

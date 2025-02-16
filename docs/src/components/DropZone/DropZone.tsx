@@ -1,4 +1,4 @@
-import { useProbingDropzone } from "@knide/fs-prober/src/useProbingDropzone"
+import { useProbingDropzone } from "@knide/fs-prober/react"
 import PropTypes from "prop-types"
 import { type CSSProperties, useEffect, useRef, useState } from "react"
 
@@ -23,7 +23,7 @@ export const DropZone = ({ disable, shouldUploadonDrop, handleUpload }) => {
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     if (didDropOccur.current) {
-      handleUpload(acceptedFiles, hierarchyDetails.current)
+      handleUpload(acceptedFiles, hierarchyDetails)
     }
 
     didDropOccur.current = false

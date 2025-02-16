@@ -34,7 +34,10 @@ const errorOut = () => {
 }
 
 /** When we use FS API it will return promisified rootHandle else we'll get rootHandle directly */
-export const getRootHandle = (dtEvent: DataTransferDropEvent, dataTransferItemIdx: number) => {
+export const getRootHandle = async (
+  dtEvent: DataTransferDropEvent,
+  dataTransferItemIdx: number,
+): Promise<FileSystemHandle | FileSystemEntry | null> => {
   if (!dtEvent.dataTransfer) throw new Error("Unable to get rootHandle for drop event")
   if (shouldUseWebkitApi) {
     const item = dtEvent.dataTransfer.items[dataTransferItemIdx]?.webkitGetAsEntry() // "DirectoryEntry" or "FileEntry"
@@ -56,7 +59,7 @@ export const getRootHandle = (dtEvent: DataTransferDropEvent, dataTransferItemId
   throw errorOut()
 }
 
-export const getHandleKind = (handle: FileSystemHandle | FileSystemEntry) => {
+export const getHandleKind = (handle: FileSystemHandle | FileSystemEntry): FileSystemHandleKind => {
   if (shouldUseWebkitApi && !isFsApiHandle(handle)) {
     if ("isFile" in handle && handle.isFile) return "file"
     if ("isDirectory" in handle && handle.isDirectory) return "directory"
@@ -70,7 +73,9 @@ export const getHandleKind = (handle: FileSystemHandle | FileSystemEntry) => {
 
 export const getDirHandleEntries = async (
   dirHandle: FileSystemDirectoryHandle | FileSystemDirectoryEntry,
-) => {
+): Promise<
+  [string, FileSystemEntry][] | [string, FileSystemDirectoryHandle | FileSystemFileHandle][]
+> => {
   const errMsg = "Passed handle is not a directory"
 
   if (shouldUseWebkitApi && !isFsApiHandle(dirHandle)) {
@@ -117,7 +122,9 @@ export const getDirHandleEntries = async (
   throw errorOut()
 }
 
-export const getFile = async (fileHandle: FileSystemFileHandle | FileSystemFileEntry) => {
+export const getFile = async (
+  fileHandle: FileSystemFileHandle | FileSystemFileEntry,
+): Promise<File> => {
   if (shouldUseWebkitApi && !isFsApiHandle(fileHandle)) {
     const getFileFromFileEntry = async (fileEntry: FileSystemFileEntry): Promise<File> => {
       return new Promise((resolve, reject) => fileEntry.file(resolve, reject))
