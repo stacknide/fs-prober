@@ -71,6 +71,7 @@
               "error",
               "info",
               "warn",
+              "debug",
               "group",
               "groupCollapsed",
               "groupEnd"

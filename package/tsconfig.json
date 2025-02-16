@@ -8,7 +8,6 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "target": "esnext",
-    "allowJs": true,
     "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
 
@@ -28,9 +27,14 @@
 
     "jsx": "react-jsx",
     "allowImportingTsExtensions": true,
-    "exactOptionalPropertyTypes": true
-    // "verbatimModuleSyntax": true
-    // "isolatedDeclarations": true
+    "exactOptionalPropertyTypes": true,
+    "verbatimModuleSyntax": true,
+    "isolatedDeclarations": true,
+
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "dist-tsc"]
