@@ -6,25 +6,64 @@
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "default": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "./react": {
+      "types": "./dist/react.d.ts",
+      "import": {
+        "types": "./dist/react.d.ts",
+        "default": "./dist/react.mjs"
+      },
+      "default": {
+        "types": "./dist/react.d.ts",
+        "default": "./dist/react.js"
+      }
+    },
+    "./dist/react": {
+      "types": "./dist/react.d.ts",
+      "import": {
+        "types": "./dist/react.d.ts",
+        "default": "./dist/react.mjs"
+      },
+      "default": {
+        "types": "./dist/react.d.ts",
+        "default": "./dist/react.js"
+      }
+    }
+  },
   "publishConfig": {
     "access": "public"
   },
   "files": [
-    "LICENSE",
-    "CHANGELOG.md",
-    "src",
-    "dist",
-    "README.md"
+    "**/*"
   ],
   "scripts": {
     "dev:tsc": "tsc -w -p tsc.tsconfig.json",
-    "dev": "NODE_ENV=development tsup src/index.ts --format cjs,esm --dts --watch",
-    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "dev": "NODE_ENV=development tsup",
+    "build": "tsup",
     "lint:tsc": "tsc --noEmit",
     "lint:biome": "biome check ./src",
     "lint": "yarn lint:tsc && yarn lint:biome",
     "format": "biome check --write ./src"
   },
+  "author": "Author of your-package-name",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/your-org/your-package-name/issues"
+  },
+  "homepage": "https://github.com/your-org/your-package-name#readme",
+  "keywords": [],
+  "dependencies": {},
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "lefthook": "^1.9.2",
@@ -42,12 +81,5 @@
     "react": {
       "optional": true
     }
-  },
-  "author": "Author of your-package-name",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/your-org/your-package-name/issues"
-  },
-  "homepage": "https://github.com/your-org/your-package-name#readme",
-  "keywords": []
+  }
 }

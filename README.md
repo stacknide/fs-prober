@@ -1,5 +1,17 @@
 # NPM package template
 
+## Development
+
+- Install dependencies: `yarn`
+- Run development server + build package on changes: `yarn dev`
+  - Check `./package.json` for `dev` script. It runs dev commands for docusaurus and package concurrently.
+  - Run only docusaurus dev server: `yarn workspace docs start`
+  - Run only package build: `yarn workspace your-package-name dev`
+    - Package is pre-configured to build out 2 dist paths: 
+      - `dist/index.*js` for vanilla JS exports
+      - `dist/react.*js` for React exports
+    - Docs has an example of importing an example `addNumber` export from `your-package-name` package in `getting-started.mdx`
+
 ## Configure package and its deployment on NPM
 - Replace all instances of `your-package-name` with your package name
 - Replace all instances of `your-org` with your GitHub org name / your username

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.8.3/schema.json",
+  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
   "organizeImports": {
     "enabled": true
   },
@@ -19,9 +19,23 @@
         "noExplicitAny": "off",
         "noArrayIndexKey": "off",
         "noDoubleEquals": "off",
-        "noConsoleLog": "error",
         "noAssignInExpressions": "off",
-        "noRedeclare": "off"
+        "noRedeclare": "off",
+        "noConsole": {
+          "level": "error",
+          "options": {
+            "allow": [
+              "assert",
+              "error",
+              "info",
+              "warn",
+              "debug",
+              "group",
+              "groupCollapsed",
+              "groupEnd"
+            ]
+          }
+        }
       },
       "style": {
         "noParameterAssign": "off",

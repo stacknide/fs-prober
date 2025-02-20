@@ -1,3 +1,4 @@
-export const addNumber = (a: number, b: number) => {
-  return a + b
-}
+import * as mylib from './export/vanilla'
+export default mylib
+
+export * from './export/vanilla'

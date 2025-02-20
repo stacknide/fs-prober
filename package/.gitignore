@@ -1,0 +1,11 @@
+node_modules
+dist-tsc
+
+dist
+# chunk-*.*js*
+# index.*js*
+# index.d.*ts
+# react.*js*
+# react.d.*ts
+
+
