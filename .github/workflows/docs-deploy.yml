@@ -16,7 +16,8 @@ jobs:
 
       - name: Enable Corepack
         run: corepack enable
-      - uses: actions/setup-node@v4
+      - name: Setting up Node LTS
+        uses: actions/setup-node@v4
         with:
           node-version: "lts/*"
           cache: yarn
