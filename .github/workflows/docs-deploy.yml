@@ -26,7 +26,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Build docs website
-        run: yarn workspace docs build
+        run: yarn workspace your-package-name build && yarn workspace docs build
 
       - name: Upload Build Artifact
         uses: actions/upload-pages-artifact@v3
