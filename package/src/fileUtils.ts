@@ -266,7 +266,12 @@ export const addFileProperties = (
 
     return file
   } catch (e) {
-    if (e instanceof TypeError && e.message.includes("Cannot redefine property")) {
+    const isRedefineErr =
+      e instanceof TypeError &&
+      (e.message.includes("Cannot redefine property") || // chrome
+        e.message.includes("can't redefine non-configurable property") || // firefox
+        e.message.includes("Attempting to change value of a readonly property")) // safari
+    if (isRedefineErr) {
       // If it's not possible to redefine the `property`, create a new File object
       const newFile = new File([file], file.name, {
         type: file.type,
