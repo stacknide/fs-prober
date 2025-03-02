@@ -1,6 +1,6 @@
 .switch {
-  $thumbMargin: 4px;
-  $thumbSide: 16px;
+  $thumbMargin: 3px;
+  $thumbSide: 12px;
   $trackWidth: calc($thumbSide * 2 + $thumbMargin * 2);
   $trackHeight: calc($thumbSide + $thumbMargin * 2);
   position: relative;

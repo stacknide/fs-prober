@@ -10,7 +10,7 @@ const DemoProbingDropzoneCompo = () => {
 
   return (
     <>
-      <h4 className={ss.selectionModes}>Selection Modes for File Selection Window:</h4>
+      <h5 className={ss.selectionModes}>Selection Modes for File Selection Window:</h5>
       <div className={ss.modeSelector}>
         <Switch
           isChecked={isFolderSelectionMode}

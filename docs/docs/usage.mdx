@@ -3,33 +3,59 @@ sidebar_position: 2
 ---
 
 import DemoUseProbingDropzoneHook from '../src/components/Playgrounds/DemoUseProbingDropzoneHook';
-import DemoProbingDropzoneCompo from './../src/components/Playgrounds/DemoProbingDropzoneCompo'
+import DemoProbingDropzoneCompo from './../src/components/Playgrounds/DemoProbingDropzoneCompo';
 
 # Usage
 
+## Overview
+
+The `@knide/fs-prober` package has only two main exports:
+- [`useProbingDropzone`](#useprobingdropzone)
+- [`ProbingDropzone`](#probingdropzone) - Convenience wrapper component for the `useProbingDropzone` hook
+
+The package also exports a number of utility functions for working with file system objects, which are described [here](#utility-functions).
+
 ### `useProbingDropzone`
 
-### Overview
+The `useProbingDropzone` hook extends the functionality of [`useDropzone`](https://react-dropzone.js.org/#usage) hook.
 
-This function extends the capabilities of useDropzone by adding directory probing functionality enabling to detect even nested empty folders
+#### Parameters
 
-**Example:**
+`useProbingDropzone` hook accepts an object as a parameter containing optional configuration for the hook. It accepts the same configuration as [`useDropzone`](https://react-dropzone.js.org/#usage) hook, but with the following additional parameters:
+
+| Name | Type | Description |
+|---|---|---|
+| `isFolderSelectionMode` | `boolean` | If set to `true`, the hook will enable folder selection mode, allowing users to select folders instead of files. |
+
+#### Return Value
+
+The `useProbingDropzone` hook returns an object containing the same properties as [`useDropzone`](https://react-dropzone.js.org/#usage) hook, but with the following additional properties:
+
+| Name | Type | Description |
+|---|---|---|
+| `hierarchyDetails` | [`HierarchyDetailsVariant`](#hierarchydetailsvariant) | An object containing details about the hierarchy of files and folders. |
+| `isLoading` | `boolean` | This property is set to `true` when the hook is busy generating the hierarchy details. |
+{/* | `getFileList` | `(filesArray?: readonly FileWithPath[]) => FileList` | A function that converts an array of files into a [FileList](https://developer.mozilla.org/en-US/docs/Web/API/FileList) object. | */}
+
+The return type is `ProbingDropzoneState`
+
+#### Example
 ```jsx
 import { useProbingDropzone } from "@knide/fs-prober"
 
 const App = () => {
-  // Optional prop to enable folder selection mode
+  // Optional configuration parameter to enable folder selection mode
   const [isFolderSelectionMode, setIsFolderSelectMode] = useState(false)
 
-  const [dropZoneProps, hierarchyDetails] = useProbingDropzone({ isFolderSelectionMode })
-  const { acceptedFiles, getRootProps, getInputProps } = dropZoneProps
+  const { acceptedFiles, getRootProps, getInputProps, isLoading, hierarchyDetails } =
+    useProbingDropzone({ isFolderSelectionMode })
 
   return (
     <>
       <SelectionModeSwitch {...{isFolderSelectionMode, setIsFolderSelectMode}} /> 
 
-      <section className={ss.dropzoneRoot}>
-        <div {...getRootProps({ className: ss.dropzone })}>
+      <section className={style.dropzoneRoot}>
+        <div {...getRootProps({ className: style.dropzone })}>
           <input {...getInputProps()} />
           <p>
             Drag 'n' drop some files & folders here, or click to select {isFolderSelectionMode ? "a folder" : "files"}
@@ -41,8 +67,194 @@ const App = () => {
 }
 ```
 
+#### Demo
+
+:::tip
+
+Open your Browser DevTools console tab to see the output.
+
+:::
+
 <DemoUseProbingDropzoneHook/>
 
-# Demo 2
+
+### `ProbingDropzone`
+
+The `ProbingDropzone` component extends the functionality of [`Dropzone`](https://react-dropzone.js.org/#src) component.
+
+It is a convenience wrapper component for the [`useProbingDropzone`](#useprobingdropzone) hook.
+
+#### Component Props
+
+The `ProbingDropzone` component accepts the same props as [`Dropzone`](https://react-dropzone.js.org/#src) component, but with the following additional props:
+
+| Name | Type | Description |
+|---|---|---|
+| `children` | `(props: ProbingDropzoneState) => React.ReactNode` | A function that returns the content to be rendered inside the component. |
+| `onProbingDrop` | `(props: ProbingDropzoneState) => void` | A function that is called when the hierarchy details are available. |
+
+#### Example
+```jsx
+import { ProbingDropzone } from "@knide/fs-prober"
+
+const App = () => {
+  return (
+    <ProbingDropzone
+      onProbingDrop={({ acceptedFiles, hierarchyDetails }) => {
+        // Do something with the accepted files and hierarchy details
+        console.log("acceptedFiles:", acceptedFiles)
+        console.log("hierarchyDetails:", hierarchyDetails)
+      }}
+    >
+      {({ acceptedFiles, getRootProps, getInputProps, isLoading, hierarchyDetails }) => (
+        <section className={style.dropzoneRoot}>
+          <div {...getRootProps({ className: style.dropzone })}>
+            <input {...getInputProps()} />
+            <p>
+              Drag 'n' drop some files & folders here, or click to select a folder
+            </p>
+          </div>
+        </section>
+        
+        <OutputPreview isLoading={isLoading} acceptedFiles={acceptedFiles} hierarchyDetails={hierarchyDetails} />
+      )}
+    </ProbingDropzone>
+  )
+}
+```
+
+#### Demo
+
+:::tip
+
+Open your Browser DevTools console tab to see the output.
+
+:::
+
 <DemoProbingDropzoneCompo/>
 
+## Utility Functions
+
+### `getHierarchyDetailsFromFiles`
+
+The `getHierarchyDetailsFromFiles` function takes an array of files and returns an [`HierarchyDetailsWithoutHandles`](#hierarchydetailswithouthandles) object containing details about the hierarchy of files and folders.
+
+#### Parameters
+
+| Name | Type | Description |
+|---|---|---|
+| `files` | `readonly FileWithPath[]` | An array of files. Each file must have a `path` property |
+
+#### Example
+
+```jsx
+const { getRootProps, getInputProps } = useProbingDropzone({
+  onDrop: (acceptedFiles) => {
+    const hierarchyDetails = getHierarchyDetailsFromFiles(acceptedFiles)
+    handleUpload(acceptedFiles, hierarchyDetails)
+  },
+  noDrag: true,
+})
+```
+
+### `getFilesArrFromHierarchyFiles`
+
+The `getFilesArrFromHierarchyFiles` function takes an array of [`FileNode`](#filenode) objects and returns an array of [`File`](https://developer.mozilla.org/en-US/docs/Web/API/File) objects.
+
+#### Parameters
+
+| Name | Type | Description |
+|---|---|---|
+| `hierarchyFiles` | `FileNode[]` | An array of [`FileNode`](#filenode) objects. |
+
+#### Example
+
+```jsx
+const files = await getFilesArrFromHierarchyFiles(hierarchyDetails?.allFiles)
+```
+
+### `addFileProperties`
+
+The `addFileProperties` function accepts a file and an object containing key-value pairs, then attaches those key-value pairs to the file object. It includes built-in error handling for Safari, Chrome, and Firefox.
+
+#### Parameters
+
+| Name | Type | Description |
+|---|---|---|
+| `file` | [`File`](https://developer.mozilla.org/en-US/docs/Web/API/File) | The file to modify |
+| `propertiesObject` | `Record<string, any>` | An object containing key-value pairs to add to the file object |
+
+#### Example
+
+```jsx
+const newFile = addFileProperties(file, {
+  myCustomProperty: "myCustomValue",
+})
+```
+
+## Types
+
+### `FileNode`
+
+The `FileNode` type represents a file in the generated hierarchy details.
+
+#### Properties
+
+| Name | Type | Description |
+|---|---|---|
+| `name` | `string` | The name of the file. |
+| `nameId` | `string` | A unique identifier for the file. |
+| `pathIds` | `string[]` | An array of `nameId` strings, sequentially representing the parent folder IDs and the file ID. |
+| `kind` | `"file"` | Always `"file"`. |
+| `isBranch`| `false` | Always `false`. Added for compatibility when using the [react-accessible-treeview](https://dgreene1.github.io/react-accessible-treeview/) library. |
+| `path` | `string` | The path to the file. |
+| `handle` | `FileSystemFileHandle \| FileSystemFileEntry` _(optional)_ | The [file entry](https://developer.mozilla.org/en-US/docs/Web/API/FileSystemFileEntry) or [file handle](https://developer.mozilla.org/en-US/docs/Web/API/FileSystemFileHandle) for the file.<br/> - Only available when the file drop event contains a [`DataTransfer`](https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer) object.<br/> - By default, the package uses the [File and Directory Entries API](https://developer.mozilla.org/en-US/docs/Web/API/File_and_Directory_Entries_API), which returns `FileSystemFileEntry` objects.<br/> - If you opt to use the [WICG File System Access API](https://developer.mozilla.org/en-US/docs/Web/API/File_System_API), it will return `FileSystemFileHandle` objects. |
+
+### `FolderNode`
+
+The `FolderNode` type represents a folder in the generated hierarchy details.
+
+#### Properties  
+
+| Name | Type | Description |
+|---|---|---|
+| `name` | `string` | The name of the folder. |
+| `nameId` | `string` | A unique identifier for the folder. |
+| `pathIds` | `string[]` | An array of `nameId` strings, sequentially representing the parent folder IDs and the folder ID. |
+| `kind` | `"directory"` | Always `"directory"`. |
+| `isBranch` | `true` | Always `true`. Added for compatibility when using the [react-accessible-treeview](https://dgreene1.github.io/react-accessible-treeview/) library. |
+| `path` | `string` | The path to the folder. |
+| `children` | `(FolderNode \| TFileNode)[]` | An array of [`FolderNode`](#foldernode) or [`FileNode`](#filenode) objects representing the children of the folder. |
+| `handle` | `FileSystemDirectoryEntry \| FileSystemDirectoryHandle` _(optional)_ | The [directory entry](https://developer.mozilla.org/en-US/docs/Web/API/FileSystemDirectoryEntry) or [directory handle](https://developer.mozilla.org/en-US/docs/Web/API/FileSystemDirectoryHandle) for the folder.<br/> - Only available when the file drop event contains a [`DataTransfer`](https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer) object.<br/> - By default, the package uses the [File and Directory Entries API](https://developer.mozilla.org/en-US/docs/Web/API/File_and_Directory_Entries_API), which returns `FileSystemDirectoryEntry` objects.<br/> - If you opt to use the [WICG File System Access API](https://developer.mozilla.org/en-US/docs/Web/API/File_System_API), it will return `FileSystemDirectoryHandle` objects. |
+
+### `HierarchyDetailsVariant`
+
+The `HierarchyDetailsVariant` type is used to represent the hierarchy of files and folders in a folder structure. Its is a union of `HierarchyDetails` and `HierarchyDetailsWithoutHandles` types.
+- [`HierarchyDetails`](#hierarchydetails) - This type may be returned when using [`useProbingDropzone`](#useprobingdropzone) or [`ProbingDropzone`](#probingdropzone) to get the hierarchy details from an file drop event.
+- [`HierarchyDetailsWithoutHandles`](#hierarchydetailswithouthandles) - This type is returned when using [`getHierarchyDetailsFromFiles`](#gethierarchydetailsfromfiles) to get the hierarchy details from an array of files.
+
+
+### `HierarchyDetails`
+
+The `HierarchyDetails` type is an object containing details about the hierarchy of files and folders. 
+
+This may be returned when using [`useProbingDropzone`](#useprobingdropzone) or [`ProbingDropzone`](#probingdropzone) to get the hierarchy details. If the file drop event contains [`DataTransfer`](https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer) object, this type is returned. Else [`HierarchyDetailsWithoutHandles`](#hierarchydetailswithouthandles) is returned.
+
+#### Properties
+
+| Name | Type | Description |
+|---|---|---|
+| `emptyFolders` | `FolderNode[]` | An array of `FolderNode` objects where each object contains information about empty folders |
+| `allFolders` | `FolderNode[]` | An array of `FolderNode` objects where each object contains information about all folders |
+| `allFiles` | `FileNode[]` | An array of `FileNode` objects where each object contains information about all files |
+| `rootFolders` | `FolderNode[]` | An array of `FolderNode` objects where each object contains information about root-level folders |
+| `rootFiles` | `FileNode[]` | An array of `FileNode` objects where each object contains information about root-level files |
+| `nameMap` | `Map<string, string>` | A map where the keys are file or folder ID and the values are their corresponding names |
+| `objectMap` | `Map<string, FolderNode \| FileNode>` | A map where each key represents a file or folder ID, and each value is a `FolderNode` or `FileNode` object containing detailed information about the respective file or folder. |
+| `rootHandles` | `(FileSystemEntry \| FileSystemHandle)[]` | An array of [`FileSystemEntry`](https://developer.mozilla.org/en-US/docs/Web/API/FileSystemEntry) or [`FileSystemHandle`](https://developer.mozilla.org/en-US/docs/Web/API/FileSystemHandle) instances representing the root-level files.<br/> - By default, the package uses the [File and Directory Entries API](https://developer.mozilla.org/en-US/docs/Web/API/File_and_Directory_Entries_API), which returns `FileSystemEntry` objects.<br/> - If you opt to use the [WICG File System Access API](https://developer.mozilla.org/en-US/docs/Web/API/File_System_API), it will return `FileSystemHandle` objects. |
+
+### `HierarchyDetailsWithoutHandles`
+
+The `HierarchyDetailsWithoutHandles` type is a subset of the `HierarchyDetails` type that does not include the `rootHandles` property. It is returned when using [`getHierarchyDetailsFromFiles`](#gethierarchydetailsfromfiles) to get the hierarchy details from an array of files.
+
+It has the same properties as `HierarchyDetails`, except for `rootHandles`. None of the [`FileNode`](#filenode) or [`FolderNode`](#foldernode) objects have a `handle` property.
