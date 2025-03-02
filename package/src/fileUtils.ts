@@ -5,6 +5,7 @@ import {
   type FileNode,
   type FileNodeWithoutHandle,
   type FolderNode,
+  type FolderNodeWithoutHandle,
   type HierarchyDetailsWithoutHandles,
   isFolderNode,
 } from "./types"
@@ -47,7 +48,7 @@ const generateFolders = (
 
   const createFoldersRecursively = (
     pathParts: string[],
-    child: FileNodeWithoutHandle | FolderNode<FileNodeWithoutHandle>,
+    child: FileNodeWithoutHandle | FolderNodeWithoutHandle<FileNodeWithoutHandle>,
   ) => {
     if (!pathParts.length) return { pathIds: [] } // this is a root file
 
@@ -67,7 +68,7 @@ const generateFolders = (
 
     const folderName = pathParts[pathParts.length - 1] || ""
     const nameId = getNameId(folderName, nameMap)
-    const folder: FolderNode<FileNodeWithoutHandle> = {
+    const folder: FolderNodeWithoutHandle<FileNodeWithoutHandle> = {
       name: folderName,
       nameId,
       kind: "directory",

@@ -138,6 +138,7 @@ const traverseDirectory = async (
     isBranch: true,
     path: currentPath,
     children: [],
+    handle: dirHandle,
   }
   objectMap.set(folderNameId, folderDetails)
 

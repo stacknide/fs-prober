@@ -10,11 +10,19 @@ export type FolderNode<TFileNode = FileNode> = {
   isBranch: true
   path: string
   children: (FolderNode<TFileNode> | TFileNode)[]
+  handle: FileSystemDirectoryEntry | FileSystemDirectoryHandle
+}
+
+export type FolderNodeWithoutHandle<TFileNode = FileNodeWithoutHandle> = Omit<
+  FolderNode<TFileNode>,
+  "handle" | "children"
+> & {
+  children: (FolderNodeWithoutHandle<TFileNode> | TFileNode)[]
 }
 
 export const isFolderNode = <T>(
-  node: FolderNode<T> | FileNode | FileNodeWithoutHandle,
-): node is FolderNode<T> => node.kind === "directory"
+  node: FolderNode<T> | FolderNodeWithoutHandle<T> | FileNode | FileNodeWithoutHandle,
+): node is FolderNodeWithoutHandle<T> => node.kind === "directory"
 
 export type FileNode = {
   name: string
@@ -38,25 +46,22 @@ export type HierarchyTree = {
   objectMap: Map<string, FolderNode | FileNode>
 }
 
-export type HierarchyDetails<TFileNode = FileNode> = {
-  emptyFolders: FolderNode<TFileNode>[]
-  allFolders: FolderNode<TFileNode>[]
-  rootFolders: FolderNode<TFileNode>[]
+export type HierarchyDetails<TFileNode = FileNode, TFolderNode = FolderNode> = {
+  emptyFolders: TFolderNode[]
+  allFolders: TFolderNode[]
+  rootFolders: TFolderNode[]
   nameMap: Map<string, string>
-  objectMap: Map<string, FolderNode<TFileNode> | FileNode>
-  allFiles: FileNode[]
-  rootFiles: FileNode[]
+  objectMap: Map<string, TFileNode | TFolderNode>
+  allFiles: TFileNode[]
+  rootFiles: TFileNode[]
   rootHandles: (FileSystemEntry | FileSystemHandle)[]
 }
 
-export type HierarchyDetailsWithoutHandles = {
-  emptyFolders: HierarchyDetails<FileNodeWithoutHandle>["emptyFolders"]
-  allFolders: HierarchyDetails<FileNodeWithoutHandle>["allFolders"]
-  rootFolders: HierarchyDetails<FileNodeWithoutHandle>["rootFolders"]
-  nameMap: HierarchyDetails<FileNodeWithoutHandle>["nameMap"]
-  objectMap: Map<string, FolderNode<FileNodeWithoutHandle> | FileNodeWithoutHandle>
-  allFiles: FileNodeWithoutHandle[]
-  rootFiles: FileNodeWithoutHandle[]
+export type HierarchyDetailsWithoutHandles = Omit<
+  HierarchyDetails<FileNodeWithoutHandle, FolderNodeWithoutHandle>,
+  "rootHandles"
+> & {
+  objectMap: Map<string, FileNodeWithoutHandle | FolderNodeWithoutHandle>
 }
 
 export type HierarchyDetailsVariant = HierarchyDetails | HierarchyDetailsWithoutHandles
