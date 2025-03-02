@@ -1,47 +1,59 @@
 import Heading from "@theme/Heading"
 import clsx from "clsx"
 import type { JSX } from "react"
+import { IoMdGlobe } from "react-icons/io"
+import type { IconType } from "react-icons/lib"
+import { LuPlugZap } from "react-icons/lu"
+import { MdOutlineRocketLaunch } from "react-icons/md"
 
-import styles from "./styles.module.scss"
+import ss from "./styles.module.scss"
 
 type FeatureItem = {
   id: string
   title: string
-  Svg: React.ComponentType<React.ComponentProps<"svg">>
+  Svg: IconType
   description: JSX.Element
 }
 
 const FeatureList: FeatureItem[] = [
   {
     id: "easy-to-use",
-    title: "Easy to Use",
-    Svg: require("@site/static/img/undraw_docusaurus_mountain.svg").default,
+    title: "Effortless Setup",
+    Svg: MdOutlineRocketLaunch,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and used to get your
-        website up and running quickly.
+        Offers a fully-typed JavaScript API to create an HTML5-compliant drag-and-drop zone for
+        files with minimal setup.
       </>
     ),
   },
   {
-    id: "focus-on-what-matters",
-    title: "Focus on What Matters",
-    Svg: require("@site/static/img/undraw_docusaurus_tree.svg").default,
+    id: "powereful",
+    title: "Browser Compatiblity",
+    // Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+    Svg: IoMdGlobe,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go ahead and move your
-        docs into the <code>docs</code> directory.
+        It is tested with the latest versions of Chrome, Firefox, Edge, and Safari. It supports both
+        the&nbsp;
+        <a href="https://developer.mozilla.org/en-US/docs/Web/API/FileSystem">File System API</a>
+        &nbsp; and the&nbsp;
+        <a href="https://developer.mozilla.org/en-US/docs/Web/API/File_and_Directory_Entries_API">
+          File and Directory Entries API
+        </a>
+        .
       </>
     ),
   },
   {
-    id: "powered-by-react",
-    title: "Powered by React",
-    Svg: require("@site/static/img/undraw_docusaurus_react.svg").default,
+    id: "dropzone",
+    title: "Easy Migration",
+    // Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    Svg: LuPlugZap,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can be extended while
-        reusing the same header and footer.
+        Easily migrate from <a href="https://react-dropzone.js.org/">react-dropzone</a> with drop-in
+        replacements for the <code>useDropzone</code> hook and <code>Dropzone</code> component.
       </>
     ),
   },
@@ -51,7 +63,7 @@ function Feature({ title, Svg, description }: FeatureItem) {
   return (
     <div className={clsx("col col--4")}>
       <div className="text--center">
-        <Svg className={styles.featureSvg} role="img" />
+        <Svg size={64} />
       </div>
       <div className="text--center padding-horiz--md">
         <Heading as="h3">{title}</Heading>
@@ -63,7 +75,7 @@ function Feature({ title, Svg, description }: FeatureItem) {
 
 export default function HomepageFeatures(): JSX.Element {
   return (
-    <section className={styles.features}>
+    <section className={ss.features}>
       <div className="container">
         <div className="row">
           {FeatureList.map((props) => (
