@@ -1,4 +1,4 @@
-import type { DropEvent, DropzoneInputProps, DropzoneState } from "react-dropzone"
+import type { DropEvent } from "react-dropzone"
 
 export type DataTransferDropEvent = DropEvent & { dataTransfer?: DataTransfer | null }
 
@@ -60,8 +60,3 @@ export type HierarchyDetailsWithoutHandles = {
 }
 
 export type HierarchyDetailsVariant = HierarchyDetails | HierarchyDetailsWithoutHandles
-
-export type ProbingDropzonState = DropzoneState & {
-  isLoading: boolean
-  getInputProps: <T extends DropzoneInputProps>(props?: T) => T
-}

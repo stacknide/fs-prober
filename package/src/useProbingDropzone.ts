@@ -1,7 +1,13 @@
-import type { HierarchyDetails, HierarchyDetailsVariant, ProbingDropzonState } from "@/types"
+import type { HierarchyDetails, HierarchyDetailsVariant } from "@/types"
 import { type FileWithPath, fromEvent } from "file-selector"
 import { useCallback, useMemo, useState } from "react"
-import { type DropEvent, type DropzoneOptions, useDropzone } from "react-dropzone"
+import {
+  type DropEvent,
+  type DropzoneInputProps,
+  type DropzoneOptions,
+  type DropzoneState,
+  useDropzone,
+} from "react-dropzone"
 import {
   convertToFileList,
   filterFiles,
@@ -23,17 +29,21 @@ const DEFAULT_HIERARCHY_DETAILS: HierarchyDetails = {
 }
 
 export type ProbingDropzoneOptions = { isFolderSelectionMode?: boolean }
+export type ProbingDropzoneState = DropzoneState & {
+  isLoading: boolean
+  getInputProps: <T extends DropzoneInputProps>(props?: T) => T
+  hierarchyDetails: HierarchyDetailsVariant
+  getFileList: (filesArray?: readonly FileWithPath[]) => FileList
+}
+
 /**
  * useProbingDropzone - This hook that extends the capabilities of useDropzone
  * by adding directory probing functionality enabling to detect even nested empty folders
  */
 export const useProbingDropzone = (
   options: DropzoneOptions & ProbingDropzoneOptions = {},
-): ProbingDropzonState & {
-  hierarchyDetails: HierarchyDetailsVariant
-  getFileList: (filesArray?: readonly FileWithPath[]) => FileList
-} => {
-  const [hierarchyDetails, setHierarchyDetails] = //
+): ProbingDropzoneState => {
+  const [hierarchyDetails, setHierarchyDetails] =
     useState<HierarchyDetailsVariant>(DEFAULT_HIERARCHY_DETAILS)
 
   const [isLoading, setIsLoading] = useState(false)
