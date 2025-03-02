@@ -4,3 +4,4 @@ export {
   getFilesArrFromHierarchyFiles,
   getHierarchyDetailsFromFiles,
 } from "../fileUtils"
+export * from "../types"

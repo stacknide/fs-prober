@@ -1,4 +1,4 @@
-import type { HierarchyDetails, HierarchyDetailsWithoutHandles, ProbingDropzonState } from "@/types"
+import type { HierarchyDetails, HierarchyDetailsVariant, ProbingDropzonState } from "@/types"
 import { type FileWithPath, fromEvent } from "file-selector"
 import { useCallback, useMemo, useState } from "react"
 import { type DropEvent, type DropzoneOptions, useDropzone } from "react-dropzone"
@@ -22,19 +22,19 @@ const DEFAULT_HIERARCHY_DETAILS: HierarchyDetails = {
   objectMap: new Map(),
 }
 
+export type ProbingDropzoneOptions = { isFolderSelectionMode?: boolean }
 /**
  * useProbingDropzone - This hook that extends the capabilities of useDropzone
  * by adding directory probing functionality enabling to detect even nested empty folders
  */
 export const useProbingDropzone = (
-  options: DropzoneOptions & { isFolderSelectionMode?: boolean } = {},
-): readonly [
-  ProbingDropzonState,
-  HierarchyDetails | HierarchyDetailsWithoutHandles,
-  { getFileList: (filesArray?: FileWithPath[]) => FileList },
-] => {
+  options: DropzoneOptions & ProbingDropzoneOptions = {},
+): ProbingDropzonState & {
+  hierarchyDetails: HierarchyDetailsVariant
+  getFileList: (filesArray?: readonly FileWithPath[]) => FileList
+} => {
   const [hierarchyDetails, setHierarchyDetails] = //
-    useState<HierarchyDetails | HierarchyDetailsWithoutHandles>(DEFAULT_HIERARCHY_DETAILS)
+    useState<HierarchyDetailsVariant>(DEFAULT_HIERARCHY_DETAILS)
 
   const [isLoading, setIsLoading] = useState(false)
   const defaultDropzoneProps = useDropzone({
@@ -62,9 +62,6 @@ export const useProbingDropzone = (
     ...options,
   })
 
-  const getFileList = (filesArray = defaultDropzoneProps.acceptedFiles) =>
-    convertToFileList(filesArray)
-
   const customGetInputProps: typeof defaultDropzoneProps.getInputProps = useCallback(
     (props) => {
       // Ref: https://stackoverflow.com/a/42633404/12872199
@@ -86,7 +83,13 @@ export const useProbingDropzone = (
     return { ...defaultDropzoneProps, getInputProps: customGetInputProps, isLoading }
   }, [customGetInputProps, defaultDropzoneProps, isLoading])
 
-  return [dropzoneProps, hierarchyDetails, { getFileList }] as const
+  const probingDropzoneProps = useMemo(() => {
+    const getFileList = (filesArray = defaultDropzoneProps.acceptedFiles) =>
+      convertToFileList(filesArray)
+    return { ...dropzoneProps, hierarchyDetails, getFileList }
+  }, [dropzoneProps, hierarchyDetails, defaultDropzoneProps.acceptedFiles])
+
+  return probingDropzoneProps
 }
 
 export const droppedItemHierarchyProber = async (

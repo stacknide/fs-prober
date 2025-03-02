@@ -1,19 +1,19 @@
 import { useProbingDropzone } from "@knide/fs-prober/react"
-import { HierarchyDetailsTreeView } from "@site/src/components/DirectoryTree/DirectoryTree"
-import { IndeterminateProgressbar } from "@site/src/components/IndeterminateProgressbar"
+import { OutputWindow } from "@site/src/components/Playgrounds/OutputWindow"
 import Switch from "@site/src/components/Switch"
 import { useEffect, useState } from "react"
-import ss from "./playground.module.scss"
 
-const Playground = () => {
+import ss from "./playgrounds.module.scss"
+
+const DemoUseProbingDropzoneHook = () => {
   const [isFolderSelectionMode, setIsFolderSelectMode] = useState(false)
 
-  const [dropZoneProps, hierarchyDetails] = useProbingDropzone({ isFolderSelectionMode })
-  const { acceptedFiles, getRootProps, getInputProps, isLoading } = dropZoneProps
+  const { acceptedFiles, getRootProps, getInputProps, isLoading, hierarchyDetails } =
+    useProbingDropzone({ isFolderSelectionMode })
 
   useEffect(() => {
     if (!hierarchyDetails) return
-    console.group("%cOutput", "color: yellow; font-weight: bold;")
+    console.group("%cuseProbingDropzone Output", "color: yellow; font-weight: bold;")
     console.info("acceptedFiles:", acceptedFiles)
     console.info("hierarchyDetails:", hierarchyDetails)
     console.groupEnd()
@@ -39,17 +39,10 @@ const Playground = () => {
           </p>
         </div>
       </section>
-      <aside className={ss.output}>
-        <h4>Files</h4>
-        <div className={ss.outputContainer}>
-          <IndeterminateProgressbar style={{ opacity: isLoading ? 1 : 0 }} />
-          <HierarchyDetailsTreeView hierarchyDetails={hierarchyDetails}>
-            {isLoading ? "Loading..." : "Nothing to display"}
-          </HierarchyDetailsTreeView>
-        </div>
-      </aside>
+
+      <OutputWindow hierarchyDetails={hierarchyDetails} isLoading={isLoading} />
     </>
   )
 }
 
-export default Playground
+export default DemoUseProbingDropzoneHook

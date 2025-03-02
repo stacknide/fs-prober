@@ -59,6 +59,8 @@ export type HierarchyDetailsWithoutHandles = {
   rootFiles: FileNodeWithoutHandle[]
 }
 
+export type HierarchyDetailsVariant = HierarchyDetails | HierarchyDetailsWithoutHandles
+
 export type ProbingDropzonState = DropzoneState & {
   isLoading: boolean
   getInputProps: <T extends DropzoneInputProps>(props?: T) => T

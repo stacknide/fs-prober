@@ -15,10 +15,11 @@ export const DropZone = ({ disable, shouldUploadonDrop, handleUpload }) => {
     setIsDragOver(false)
     didDropOccur.current = true
   }
-  const [dropZoneProps, hierarchyDetails] = //
-    useProbingDropzone({ noClick: true, onDrop, noDrag: !shouldUploadonDrop })
-
-  const { acceptedFiles, getRootProps, getInputProps } = dropZoneProps
+  const { acceptedFiles, getRootProps, getInputProps, hierarchyDetails } = useProbingDropzone({
+    noClick: true,
+    onDrop,
+    noDrag: !shouldUploadonDrop,
+  })
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
