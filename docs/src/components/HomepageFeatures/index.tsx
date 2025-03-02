@@ -36,12 +36,11 @@ const FeatureList: FeatureItem[] = [
       <>
         It is tested with the latest versions of Chrome, Firefox, Edge, and Safari. It supports both
         the&nbsp;
-        <a href="https://developer.mozilla.org/en-US/docs/Web/API/FileSystem">File System API</a>
-        &nbsp; and the&nbsp;
         <a href="https://developer.mozilla.org/en-US/docs/Web/API/File_and_Directory_Entries_API">
           File and Directory Entries API
         </a>
-        .
+        &nbsp;and the&nbsp;
+        <a href="https://developer.mozilla.org/en-US/docs/Web/API/FileSystem">File System API</a>.
       </>
     ),
   },

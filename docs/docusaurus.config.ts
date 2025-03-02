@@ -6,7 +6,8 @@ import { themes as prismThemes } from "prism-react-renderer"
 
 const config: Config = {
   title: "FS Prober",
-  tagline: "fs-prober helps you extract file and folder structures from user inputs in Browsers.",
+  tagline:
+    "FS Prober helps you extract file and folder structures from user inputs or drag-and-drop events in browsers.",
   favicon: "img/favicon.ico",
 
   // Set the production url of your site here
@@ -43,20 +44,21 @@ const config: Config = {
           // Remove this to remove the "edit this page" links.
           editUrl: "https://github.com/stacknide/fs-prober/tree/main/docs",
         },
-        blog: {
-          showReadingTime: true,
-          feedOptions: {
-            type: ["rss", "atom"],
-            xslt: true,
-          },
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl: "https://github.com/stacknide/fs-prober/tree/main/docs",
-          // Useful options to enforce blogging best practices
-          onInlineTags: "warn",
-          onInlineAuthors: "warn",
-          onUntruncatedBlogPosts: "warn",
-        },
+        blog: false,
+        // blog: {
+        //   showReadingTime: true,
+        //   feedOptions: {
+        //     type: ["rss", "atom"],
+        //     xslt: true,
+        //   },
+        //   // Please change this to your repo.
+        //   // Remove this to remove the "edit this page" links.
+        //   editUrl: "https://github.com/stacknide/fs-prober/tree/main/docs",
+        //   // Useful options to enforce blogging best practices
+        //   onInlineTags: "warn",
+        //   onInlineAuthors: "warn",
+        //   onUntruncatedBlogPosts: "warn",
+        // },
         theme: {
           customCss: "./src/css/custom.css",
         },
@@ -80,7 +82,7 @@ const config: Config = {
           position: "left",
           label: "Tutorial",
         },
-        { to: "/blog", label: "Blog", position: "left" },
+        // { to: "/blog", label: "Blog", position: "left" },
         {
           href: "https://github.com/stacknide/fs-prober",
           label: "GitHub",
@@ -95,8 +97,12 @@ const config: Config = {
           title: "Docs",
           items: [
             {
-              label: "Tutorial",
-              to: "/docs/getting-started",
+              label: "Introduction",
+              to: "/docs/intro",
+            },
+            {
+              label: "Usage Guide",
+              to: "/docs/usage",
             },
           ],
         },
@@ -117,21 +123,25 @@ const config: Config = {
         //     },
         //   ],
         // },
-        {
-          title: "More",
-          items: [
-            {
-              label: "Blog",
-              to: "/blog",
-            },
-          ],
-        },
+        // {
+        //   title: "More",
+        //   items: [
+        //     {
+        //       label: "Blog",
+        //       to: "/blog",
+        //     },
+        //   ],
+        // },
         {
           title: "Links",
           items: [
             {
               label: "GitHub",
               href: "https://github.com/stacknide",
+            },
+            {
+              label: "@ashuvssut (Author)",
+              href: "https://github.com/ashuvssut",
             },
           ],
         },
