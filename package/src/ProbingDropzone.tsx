@@ -1,8 +1,5 @@
-import {
-  type ProbingDropzoneOptions,
-  type ProbingDropzoneState,
-  useProbingDropzone,
-} from "@/useProbingDropzone"
+import type { ProbingDropzoneOptions, ProbingDropzoneState } from "@/types"
+import { useProbingDropzone } from "@/useProbingDropzone"
 import { forwardRef, useEffect, useImperativeHandle } from "react"
 import type { DropzoneProps, DropzoneRef } from "react-dropzone"
 

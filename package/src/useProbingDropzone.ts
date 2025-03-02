@@ -1,13 +1,12 @@
-import type { HierarchyDetails, HierarchyDetailsVariant } from "@/types"
+import type {
+  HierarchyDetails,
+  HierarchyDetailsVariant,
+  ProbingDropzoneOptions,
+  ProbingDropzoneState,
+} from "@/types"
 import { type FileWithPath, fromEvent } from "file-selector"
 import { useCallback, useMemo, useState } from "react"
-import {
-  type DropEvent,
-  type DropzoneInputProps,
-  type DropzoneOptions,
-  type DropzoneState,
-  useDropzone,
-} from "react-dropzone"
+import { type DropEvent, type DropzoneOptions, useDropzone } from "react-dropzone"
 import {
   convertToFileList,
   filterFiles,
@@ -26,14 +25,6 @@ const DEFAULT_HIERARCHY_DETAILS: HierarchyDetails = {
   rootFiles: [],
   nameMap: new Map(),
   objectMap: new Map(),
-}
-
-export type ProbingDropzoneOptions = { isFolderSelectionMode?: boolean }
-export type ProbingDropzoneState = DropzoneState & {
-  isLoading: boolean
-  getInputProps: <T extends DropzoneInputProps>(props?: T) => T
-  hierarchyDetails: HierarchyDetailsVariant
-  getFileList: (filesArray?: readonly FileWithPath[]) => FileList
 }
 
 /**
