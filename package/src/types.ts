@@ -1,4 +1,4 @@
-import type { DropEvent, DropzoneInputProps, DropzoneState, FileWithPath } from "react-dropzone"
+import type { DropEvent, DropzoneState, FileWithPath } from "react-dropzone"
 
 export type DataTransferDropEvent = DropEvent & { dataTransfer?: DataTransfer | null }
 
@@ -64,7 +64,6 @@ export type HierarchyDetailsVariant = HierarchyDetails | HierarchyDetailsWithout
 export type ProbingDropzoneOptions = { isFolderSelectionMode?: boolean }
 export type ProbingDropzoneState = DropzoneState & {
   isLoading: boolean
-  getInputProps: <T extends DropzoneInputProps>(props?: T) => T
   hierarchyDetails: HierarchyDetailsVariant
   getFileList: (filesArray?: readonly FileWithPath[]) => FileList
 }

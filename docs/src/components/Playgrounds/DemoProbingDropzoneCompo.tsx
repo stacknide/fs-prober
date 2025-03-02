@@ -20,7 +20,7 @@ const DemoProbingDropzoneCompo = () => {
       </div>
 
       <ProbingDropzone
-        onDrop={({ acceptedFiles, hierarchyDetails }) => {
+        onProbingDrop={({ acceptedFiles, hierarchyDetails }) => {
           if (!hierarchyDetails) return
           console.group("%cProbingDropzone Output", "color: yellow; font-weight: bold;")
           console.info("acceptedFiles:", acceptedFiles)
