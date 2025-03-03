@@ -1,5 +1,13 @@
 # @knide/fs-prober
 
+## 1.0.0
+
+### Major Changes
+
+- 7d6d807: - added `useProbingDropzone` and `ProbingDropzone`
+  - added various useful utility functions
+  - added documentation for v1 release
+
 ## 0.0.4
 
 ### Patch Changes
