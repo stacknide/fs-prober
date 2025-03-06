@@ -112,6 +112,11 @@ const config: Config = {
           label: "Tutorial",
         },
         // { to: "/blog", label: "Blog", position: "left" },
+        {
+          href: "https://buymeacoffee.com/ashuvssut",
+          label: "Sponsor",
+          position: "right",
+        },
         { href: repoUrl, label: "GitHub", position: "right" },
       ],
     },
