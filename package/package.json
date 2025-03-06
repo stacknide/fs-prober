@@ -63,6 +63,10 @@
   },
   "homepage": "https://github.com/stacknide/fs-prober#readme",
   "keywords": [
+    "react",
+    "react-dropzone",
+    "file-system-access",
+    "dropzone",
     "fs-prober",
     "file",
     "system",
