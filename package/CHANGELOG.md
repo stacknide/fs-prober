@@ -1,5 +1,11 @@
 # @knide/fs-prober
 
+## 1.0.1
+
+### Patch Changes
+
+- b79d412: Update npm package keywords
+
 ## 1.0.0
 
 ### Major Changes
