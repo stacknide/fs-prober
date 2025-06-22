@@ -1,16 +1,26 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.0.4/schema.json",
   "vcs": { "clientKind": "git", "enabled": true, "useIgnoreFile": true },
-  "files": { "ignore": [] },
+  "files": {},
   "formatter": {
     "enabled": true,
     "formatWithErrors": false,
     "indentStyle": "space",
     "indentWidth": 2,
     "lineWidth": 100,
-    "ignore": ["**/*/generated-new.ts", "**/*/generated-v2.ts"]
+    "includes": [
+      "**/*.{js,ts,jsx,tsx,json,css,html,md}",
+      "!**/*/generated-new.ts",
+      "!**/*/generated-v2.ts"
+    ]
   },
-  "organizeImports": { "enabled": true },
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  },
   "linter": {
     "enabled": true,
     "rules": {
@@ -28,13 +38,13 @@
         "useArrowFunction": "off",
         "useLiteralKeys": "warn",
         "useOptionalChain": "warn",
-        "useSimplifiedLogicExpression": "warn"
+        "useSimplifiedLogicExpression": "warn",
+        "noUselessContinue": "warn"
       },
       "correctness": {
         "noChildrenProp": "error",
         "noConstructorReturn": "warn",
         "noInnerDeclarations": "warn",
-        "noUnnecessaryContinue": "warn",
         "useExhaustiveDependencies": "warn",
         "noUnusedImports": {
           "level": "error",
@@ -54,6 +64,7 @@
         "useDefaultParameterLast": "off",
         "useSelfClosingElements": "error",
         "useImportType": {
+          "options": { "style": "auto" },
           "level": "error",
           "fix": "safe"
         },
@@ -85,7 +96,7 @@
         "noRedeclare": "error"
       }
     },
-    "ignore": ["**/*.d.ts"]
+    "includes": ["!**/*.d.ts"]
   },
   "javascript": {
     "formatter": {

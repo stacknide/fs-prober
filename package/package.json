@@ -82,7 +82,7 @@
     "react-dropzone": "^14.3.5"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.9.4",
+    "@biomejs/biome": "2.0.4",
     "@types/lodash.flatmap": "^4",
     "@types/lodash.map": "^4",
     "@types/wicg-file-system-access": "^2023.10.5",

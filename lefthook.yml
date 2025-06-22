@@ -2,7 +2,9 @@ pre-commit:
   commands:
     check:
       # glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}" # You only need `--files-ignore-unknown=true` to handle current and future supported files by Biome. Use `glob` for more control over which files are handled.
-      run: npx @biomejs/biome check --write --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {staged_files} # `--no-errors-on-unmatched` silents possible errors in case no files are processed.
+      run: |
+        echo "Biome version:" && npx @biomejs/biome --version
+        npx @biomejs/biome check --write --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {staged_files} # `--no-errors-on-unmatched` silents possible errors in case no files are processed.
       stage_fixed: true # stage_fixed: true adds again the staged files.
 
 # After updating the above configuration, run `yarn lefthook install` to install the hooks.
