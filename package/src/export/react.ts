@@ -1,2 +1,2 @@
-export { useProbingDropzone } from "../useProbingDropzone"
 export { ProbingDropzone } from "../ProbingDropzone"
+export { useProbingDropzone } from "../useProbingDropzone"

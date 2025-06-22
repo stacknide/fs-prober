@@ -1,12 +1,12 @@
+import { type FileWithPath, fromEvent } from "file-selector"
+import { useCallback, useMemo, useState } from "react"
+import { type DropEvent, type DropzoneOptions, useDropzone } from "react-dropzone"
 import type {
   HierarchyDetails,
   HierarchyDetailsVariant,
   ProbingDropzoneOptions,
   ProbingDropzoneState,
 } from "@/types"
-import { type FileWithPath, fromEvent } from "file-selector"
-import { useCallback, useMemo, useState } from "react"
-import { type DropEvent, type DropzoneOptions, useDropzone } from "react-dropzone"
 import {
   convertToFileList,
   filterFiles,

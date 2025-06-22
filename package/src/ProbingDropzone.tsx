@@ -1,7 +1,7 @@
-import type { ProbingDropzoneOptions, ProbingDropzoneState } from "@/types"
-import { useProbingDropzone } from "@/useProbingDropzone"
 import { forwardRef, useEffect, useImperativeHandle } from "react"
 import type { DropzoneProps, DropzoneRef } from "react-dropzone"
+import type { ProbingDropzoneOptions, ProbingDropzoneState } from "@/types"
+import { useProbingDropzone } from "@/useProbingDropzone"
 
 type ProbingDropzoneProps = Omit<DropzoneProps, "children"> & {
   children: (props: ProbingDropzoneState) => React.ReactNode
@@ -18,7 +18,6 @@ export const ProbingDropzone: React.ForwardRefExoticComponent<
 
   useImperativeHandle(ref, () => ({ open: probingDropzoneState.open }), [probingDropzoneState.open])
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     if (probingDropzoneState.hierarchyDetails && onProbingDrop) onProbingDrop(probingDropzoneState)
   }, [probingDropzoneState])

@@ -1,8 +1,8 @@
-export { fsProber } from "../probers"
 export {
+  addFileProperties,
   convertToFileList,
   getFilesArrFromHierarchyFiles,
   getHierarchyDetailsFromFiles,
-  addFileProperties,
 } from "../fileUtils"
+export { fsProber } from "../probers"
 export * from "../types"
