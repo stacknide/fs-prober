@@ -1,5 +1,11 @@
 # @knide/fs-prober
 
+## 1.0.2
+
+### Patch Changes
+
+- 914046d: fix: generate dist folder in GH action
+
 ## 1.0.1
 
 ### Patch Changes
