@@ -31,6 +31,9 @@ jobs:
       - name: Installing dependencies
         run: yarn install --frozen-lockfile
 
+      - name: Build
+        run: yarn workspace @knide/fs-prober build
+
       - name: Create Release Pull Request or Publish
         id: changesets
         uses: changesets/action@v1
